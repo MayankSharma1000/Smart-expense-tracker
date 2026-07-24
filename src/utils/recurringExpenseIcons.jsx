@@ -1,15 +1,27 @@
 import {
-  FaWifi,
-  FaDumbbell,
-  FaHome,
+  FaBolt,
+  FaBuildingColumns,
+  FaGraduationCap,
+  FaHeartPulse,
+  FaHouse,
   FaMoneyBillWave,
-  FaQuestionCircle
-} from "react-icons/fa";
+  FaReceipt,
+  FaShieldHalved,
+  FaTv,
+  FaWifi,
+  FaCircleQuestion,
+} from "react-icons/fa6";
 
 export const recurringExpenseIcons = {
-  Bills: <FaWifi />,
-  Health: <FaDumbbell />,
-  Rent: <FaHome />,
+  Bills: <FaReceipt />,
+  Rent: <FaHouse />,
   EMI: <FaMoneyBillWave />,
-  Other: <FaQuestionCircle />
+  Insurance: <FaShieldHalved />,
+  Subscription: <FaTv />,
+  Utilities: <FaBolt />,
+  Internet: <FaWifi />,
+  Education: <FaGraduationCap />,
+  Health: <FaHeartPulse />,
+  Other: <FaCircleQuestion />,
+  Banking: <FaBuildingColumns />,
 };

@@ -26,6 +26,11 @@ function Sidebar() {
       icon: <FaReceipt />,
     },
     {
+      name: "Recurring",
+      path: "/recurring",
+      icon: <FaCalendarAlt />,
+    },
+    {
       name: "Analytics",
       path: "/analytics",
       icon: <FaChartPie />,
@@ -41,11 +46,6 @@ function Sidebar() {
       icon: <FaArrowTrendUp />,
     },
     {
-      name: "Recurring",
-      path: "/recurring",
-      icon: <FaCalendarAlt />,
-    },
-    {
       name: "Settings",
       path: "/settings",
       icon: <FaCog />,
@@ -54,11 +54,7 @@ function Sidebar() {
 
   return (
     <aside className="sidebar">
-
-      {/* ================= BRAND ================= */}
-
       <div className="sidebar-logo">
-
         <div className="sidebar-logo-icon">
           <FaWallet />
         </div>
@@ -67,13 +63,9 @@ function Sidebar() {
           <h2>SmartMoney</h2>
           <p>Personal Finance OS</p>
         </div>
-
       </div>
 
-      {/* ================= NAVIGATION ================= */}
-
       <nav className="sidebar-nav">
-
         {navItems.map((item) => (
           <NavLink
             key={item.name}
@@ -85,13 +77,10 @@ function Sidebar() {
             }
           >
             {item.icon}
-
             <span>{item.name}</span>
           </NavLink>
         ))}
-
       </nav>
-
     </aside>
   );
 }
