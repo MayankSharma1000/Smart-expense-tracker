@@ -1,9 +1,2378 @@
-/* =========================
-   DASHBOARD GRIDS
-========================= */
-.expense-layout,
-.support-grid {
+/* =========================================================
+   SMARTMONEY — EXPENSES
+   Dense premium financial workspace
+========================================================= */
+
+.transactions-page {
   width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 6px 2px 40px;
+  color: #f4f7fc;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.transactions-header h1 {
+  margin: 0;
+  color: #f8faff;
+  font-size: clamp(1.85rem, 2.3vw, 2.4rem);
+  font-weight: 760;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.transactions-header p {
+  margin: 7px 0 0;
+  color: #7e8ba3;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.add-expense-primary {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex-shrink: 0;
+  padding: 0 17px;
+
+  border: 1px solid rgba(75, 174, 255, 0.55);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0877e8 0%,
+      #1599f5 100%
+    );
+
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.83rem;
+  font-weight: 720;
+
+  box-shadow:
+    0 8px 24px rgba(0, 123, 255, 0.22),
+    inset 0 1px rgba(255, 255, 255, 0.12);
+
+  transition:
+    transform 150ms ease,
+    filter 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.add-expense-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 11px 30px rgba(0, 123, 255, 0.3),
+    inset 0 1px rgba(255, 255, 255, 0.14);
+}
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.expenses-error {
+  margin-bottom: 16px;
+  padding: 12px 15px;
+
+  border: 1px solid rgba(255, 80, 105, 0.3);
+  border-radius: 10px;
+
+  background: #190d13;
+  color: #ff98a7;
+
+  font-size: 0.82rem;
+}
+
+/* =========================================================
+   ADD EXPENSE PANEL
+========================================================= */
+
+.expense-entry-panel,
+.transactions-panel {
+  border: 1px solid #1d2a3e;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0c1422 0%,
+      #090f1b 100%
+    );
+
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.24);
+}
+
+.expense-entry-panel {
+  margin-bottom: 16px;
+  padding: 19px;
+}
+
+.expense-entry-heading,
+.transactions-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.section-eyebrow {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #2da8ff;
+
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.expense-entry-heading h2,
+.transactions-panel-heading h2 {
+  margin: 0;
+
+  color: #f2f6fd;
+
+  font-size: 1.07rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.expense-form-close {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #24334a;
+  border-radius: 8px;
+
+  background: #101a2b;
+  color: #8492aa;
+
+  transition:
+    background 140ms ease,
+    color 140ms ease;
+}
+
+.expense-form-close:hover {
+  background: #162238;
+  color: #d8e2f2;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.premium-expense-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.premium-expense-form input,
+.premium-expense-form select,
+.premium-search input,
+.filter-control select,
+.payment-filter {
+  min-width: 0;
+  outline: none;
+
+  color: #dce6f5;
+
+  font: inherit;
+}
+
+.premium-expense-form input,
+.premium-expense-form select {
+  height: 43px;
+  padding: 0 13px;
+
+  border: 1px solid #223149;
+  border-radius: 9px;
+
+  background: #0d1727;
+
+  color: #dfe8f6;
+
+  font-size: 0.8rem;
+
+  transition:
+    border-color 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.premium-expense-form input::placeholder {
+  color: #64728a;
+}
+
+.premium-expense-form input:hover,
+.premium-expense-form select:hover {
+  border-color: #2b405d;
+}
+
+.premium-expense-form input:focus,
+.premium-expense-form select:focus {
+  border-color: #238ee8;
+
+  background: #101b2d;
+
+  box-shadow:
+    0 0 0 3px rgba(27, 145, 240, 0.09);
+}
+
+.expense-save-button {
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0878e8,
+      #159af5
+    );
+
+  color: #ffffff;
+
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 720;
+
+  box-shadow:
+    0 8px 22px rgba(0, 125, 255, 0.18);
+
+  transition:
+    filter 140ms ease,
+    transform 140ms ease;
+}
+
+.expense-save-button:hover:not(:disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.expense-save-button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.expense-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.expense-stat-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 94px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 16px;
+
+  border: 1px solid #1c293c;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #0d1625 0%,
+      #090f1a 100%
+    );
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.16);
+
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.expense-stat-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0 auto 0 0;
+
+  width: 2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      #159cf6,
+      transparent
+    );
+
+  opacity: 0.7;
+}
+
+.expense-stat-card:hover {
+  transform: translateY(-1px);
+  border-color: #29405e;
+
+  background:
+    linear-gradient(
+      145deg,
+      #101b2c 0%,
+      #0a111e 100%
+    );
+}
+
+.stat-icon {
+  width: 41px;
+  height: 41px;
+  flex: 0 0 41px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(45, 164, 255, 0.3);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 144, 239, 0.19),
+      rgba(22, 108, 195, 0.09)
+    );
+
+  color: #36aaff;
+
+  font-size: 0.95rem;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.expense-stat-card span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #8290a7;
+
+  font-size: 0.69rem;
+  font-weight: 620;
+  letter-spacing: 0.01em;
+}
+
+.expense-stat-card strong {
+  display: block;
+
+  color: #f7f9fd;
+
+  font-size: 1.14rem;
+  font-weight: 730;
+
+  letter-spacing: -0.025em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+/* Give the four cards subtle individual identities */
+
+.expense-stat-card:nth-child(2) .stat-icon {
+  border-color: rgba(54, 214, 167, 0.26);
+  background: rgba(34, 190, 144, 0.1);
+  color: #46d7ad;
+}
+
+.expense-stat-card:nth-child(3) .stat-icon {
+  border-color: rgba(165, 113, 255, 0.28);
+  background: rgba(147, 91, 238, 0.1);
+  color: #b18aff;
+}
+
+.expense-stat-card:nth-child(4) .stat-icon {
+  border-color: rgba(255, 177, 72, 0.27);
+  background: rgba(237, 150, 46, 0.1);
+  color: #ffb95e;
+}
+
+/* =========================================================
+   TRANSACTION PANEL
+========================================================= */
+
+.transactions-panel {
+  overflow: hidden;
+}
+
+.transactions-panel-heading {
+  min-height: 72px;
+
+  padding: 17px 19px;
+
+  border-bottom: 1px solid #182438;
+}
+
+.transaction-count {
+  padding: 5px 9px;
+
+  border: 1px solid #26364e;
+  border-radius: 999px;
+
+  background: #111b2b;
+  color: #8997ad;
+
+  font-size: 0.65rem;
+  font-weight: 650;
+}
+
+/* =========================================================
+   FILTER TOOLBAR
+========================================================= */
+
+.expense-toolbar {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 1fr)
+    180px
+    160px
+    auto;
+
+  gap: 9px;
+
+  padding: 12px 19px;
+
+  border-bottom: 1px solid #182438;
+
+  background: #0a121f;
+}
+
+.premium-search,
+.filter-control {
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 0 12px;
+
+  border: 1px solid #223149;
+  border-radius: 8px;
+
+  background: #0e1828;
+  color: #697890;
+
+  transition:
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.premium-search:hover,
+.filter-control:hover,
+.payment-filter:hover {
+  border-color: #2b405d;
+}
+
+.premium-search:focus-within,
+.filter-control:focus-within {
+  border-color: #258edc;
+  background: #101b2d;
+}
+
+.premium-search input {
+  width: 100%;
+
+  border: 0;
+
+  background: transparent;
+
+  font-size: 0.76rem;
+}
+
+.premium-search input::placeholder {
+  color: #637189;
+}
+
+.filter-control select {
+  width: 100%;
+
+  border: 0;
+
+  background: transparent;
+
+  font-size: 0.74rem;
+}
+
+.payment-filter {
+  height: 39px;
+
+  padding: 0 11px;
+
+  border: 1px solid #223149;
+  border-radius: 8px;
+
+  background: #0e1828;
+
+  font-size: 0.74rem;
+
+  transition:
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.clear-filter-button {
+  height: 39px;
+
+  padding: 0 13px;
+
+  border: 1px solid #29374c;
+  border-radius: 8px;
+
+  background: #101827;
+  color: #8d9ab0;
+
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.clear-filter-button:hover {
+  border-color: #3a4c67;
+  background: #141f31;
+  color: #c5d0e0;
+}
+
+/* =========================================================
+   TRANSACTIONS
+========================================================= */
+
+.transaction-list {
+  width: 100%;
+}
+
+.premium-transaction-row {
+  position: relative;
+
+  min-height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  padding: 11px 19px;
+
+  border-bottom: 1px solid #172235;
+
+  background: #0b1320;
+
+  transition:
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.premium-transaction-row:nth-child(even) {
+  background: #0a121e;
+}
+
+.premium-transaction-row:hover {
+  background: #101b2b;
+
+  box-shadow:
+    inset 3px 0 #168fe9;
+}
+
+.transaction-main {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.premium-category-icon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(56, 167, 255, 0.24);
+  border-radius: 10px;
+
+  background: rgba(32, 144, 238, 0.12);
+  color: #42adff;
+
+  font-size: 0.94rem;
+}
+
+/* =========================================================
+   CATEGORY IDENTITY
+========================================================= */
+
+.category-food {
+  border-color: rgba(255, 169, 75, 0.25);
+  background: rgba(255, 157, 50, 0.11);
+  color: #ffad59;
+}
+
+.category-transport {
+  border-color: rgba(64, 157, 255, 0.27);
+  background: rgba(48, 137, 238, 0.12);
+  color: #55a7ff;
+}
+
+.category-shopping {
+  border-color: rgba(184, 115, 255, 0.27);
+  background: rgba(163, 90, 239, 0.12);
+  color: #bd85ff;
+}
+
+.category-bills {
+  border-color: rgba(255, 210, 75, 0.26);
+  background: rgba(232, 185, 38, 0.11);
+  color: #f5ce56;
+}
+
+.category-entertainment {
+  border-color: rgba(53, 216, 180, 0.25);
+  background: rgba(34, 189, 156, 0.11);
+  color: #51d6b8;
+}
+
+.category-health {
+  border-color: rgba(255, 90, 119, 0.27);
+  background: rgba(234, 66, 97, 0.11);
+  color: #ff718b;
+}
+
+.category-education {
+  border-color: rgba(76, 211, 146, 0.26);
+  background: rgba(47, 186, 119, 0.11);
+  color: #58d99c;
+}
+
+.category-travel {
+  border-color: rgba(48, 205, 229, 0.27);
+  background: rgba(36, 181, 207, 0.11);
+  color: #4bd0e7;
+}
+
+.category-other {
+  border-color: rgba(148, 160, 183, 0.24);
+  background: rgba(121, 136, 161, 0.1);
+  color: #a0acc0;
+}
+
+/* =========================================================
+   TRANSACTION COPY
+========================================================= */
+
+.transaction-copy {
+  min-width: 0;
+}
+
+.transaction-copy h3 {
+  margin: 0 0 6px;
+
+  overflow: hidden;
+
+  color: #eef3fb;
+
+  font-size: 0.82rem;
+  font-weight: 680;
+
+  letter-spacing: -0.008em;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transaction-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  min-width: 0;
+
+  color: #75839a;
+
+  font-size: 0.67rem;
+}
+
+.transaction-meta > span:last-child {
+  max-width: 300px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-badge,
+.payment-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  font-weight: 650;
+}
+
+.category-badge {
+  padding: 3px 7px;
+
+  border: 1px solid rgba(56, 155, 231, 0.22);
+
+  background: rgba(38, 137, 218, 0.1);
+  color: #7dbcec;
+
+  font-size: 0.6rem;
+}
+
+.meta-dot {
+  color: #47566d;
+}
+
+/* =========================================================
+   TRANSACTION RIGHT SIDE
+========================================================= */
+
+.transaction-side {
+  flex: 0 0 auto;
+
+  display: grid;
+  grid-template-columns: 105px 120px 34px;
+  align-items: center;
+  gap: 13px;
+}
+
+.payment-badge {
+  justify-self: end;
+
+  padding: 4px 8px;
+
+  border: 1px solid #29384f;
+
+  background: #101a2a;
+  color: #94a1b5;
+
+  font-size: 0.62rem;
+}
+
+.transaction-amount {
+  justify-self: end;
+
+  color: #f5f8fd;
+
+  font-size: 0.82rem;
+  font-weight: 720;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.transaction-delete {
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #59677d;
+
+  transition:
+    color 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.transaction-delete:hover {
+  border-color: rgba(255, 78, 105, 0.27);
+
+  background: rgba(237, 61, 88, 0.1);
+  color: #ff7188;
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.transaction-pagination {
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  padding: 10px 19px;
+
+  background: #09111d;
+}
+
+.transaction-pagination p {
+  margin: 0;
+
+  color: #6f7d93;
+
+  font-size: 0.67rem;
+}
+
+.transaction-pagination p strong {
+  color: #a4afc0;
+  font-weight: 650;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pagination-controls button {
+  min-width: 31px;
+  height: 31px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0 8px;
+
+  border: 1px solid #24334a;
+  border-radius: 7px;
+
+  background: #0e1828;
+  color: #8290a6;
+
+  font: inherit;
+  font-size: 0.68rem;
+
+  transition:
+    border-color 140ms ease,
+    color 140ms ease,
+    background 140ms ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  border-color: #34506f;
+
+  background: #142137;
+  color: #d3deed;
+}
+
+.pagination-controls button.active {
+  border-color: #238fe7;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20, 139, 231, 0.26),
+      rgba(13, 101, 190, 0.17)
+    );
+
+  color: #5dbbff;
+
+  box-shadow:
+    inset 0 0 12px rgba(27, 142, 231, 0.08);
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.expenses-empty-state {
+  min-height: 230px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 30px;
+
+  background: #0a121e;
+  color: #74839a;
+
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .expense-stat-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .expense-toolbar {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .premium-expense-form {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .transactions-page {
+    padding: 2px 0 30px;
+  }
+
+  .transactions-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .add-expense-primary {
+    width: 100%;
+  }
+
+  .expense-stat-grid,
+  .expense-toolbar,
+  .premium-expense-form {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-transaction-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .transaction-side {
+    width: 100%;
+
+    grid-template-columns:
+      auto 1fr 34px;
+  }
+
+  .transaction-amount {
+    justify-self: end;
+  }
+
+  .transaction-meta {
+    flex-wrap: wrap;
+  }
+
+  .transaction-meta > span:last-child {
+    max-width: 100%;
+  }
+
+  .transaction-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
+/* =========================================================
+   PREMIUM TRANSACTION TABLE PASS
+   Search / Category / Payment + structured transaction grid
+========================================================= */
+
+.expense-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 19px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0b1422 0%,
+      #09111d 100%
+    );
+
+  border-bottom: 1px solid #1b293d;
+}
+
+.expense-filter-grid {
+  flex: 1;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.premium-search,
+.filter-control,
+.payment-filter-control {
+  width: 100%;
+  height: 42px;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 13px;
+
+  border: 1px solid #263750;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101b2d 0%,
+      #0d1727 100%
+    );
+
+  color: #6f819c;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.025),
+    0 5px 14px rgba(0, 0, 0, 0.08);
+
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.premium-search:hover,
+.filter-control:hover,
+.payment-filter-control:hover {
+  border-color: #34506f;
+  background: #111e31;
+}
+
+.premium-search:focus-within,
+.filter-control:focus-within,
+.payment-filter-control:focus-within {
+  border-color: #248fdf;
+
+  background: #111e31;
+
+  box-shadow:
+    0 0 0 3px rgba(32, 146, 232, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.premium-search > svg,
+.filter-control > svg {
+  flex: 0 0 auto;
+  color: #70829e;
+  font-size: 0.82rem;
+}
+
+.premium-search input,
+.filter-control select {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+
+  padding: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+  color: #d8e3f3;
+
+  font-size: 0.76rem;
+}
+
+.filter-control select {
+  cursor: pointer;
+}
+
+.filter-control select option {
+  background: #101a2a;
+  color: #dce6f5;
+}
+
+.premium-search input::placeholder {
+  color: #687993;
+}
+
+.payment-filter {
+  display: none;
+}
+
+.clear-filter-button {
+  height: 42px;
+  flex: 0 0 auto;
+
+  padding: 0 14px;
+
+  border: 1px solid #2b3c54;
+  border-radius: 9px;
+
+  background: #101a2a;
+  color: #91a0b6;
+
+  font-size: 0.7rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.clear-filter-button:hover {
+  border-color: #405774;
+  background: #152238;
+  color: #d2dceb;
+}
+
+/* =========================================================
+   TABLE STRUCTURE
+========================================================= */
+
+.transaction-table-shell {
+  width: 100%;
+  overflow-x: auto;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0a1320 0%,
+      #09111d 100%
+    );
+}
+
+.transaction-table-header,
+.premium-transaction-row {
+  min-width: 1040px;
+
+  display: grid;
+
+  grid-template-columns:
+    118px
+    minmax(190px, 1.45fr)
+    125px
+    125px
+    minmax(180px, 1.35fr)
+    125px
+    72px;
+
+  column-gap: 18px;
+  align-items: center;
+}
+
+.transaction-table-header {
+  min-height: 43px;
+  padding: 0 19px;
+
+  border-bottom: 1px solid #223149;
+
+  background:
+    linear-gradient(
+      180deg,
+      #101b2c 0%,
+      #0c1625 100%
+    );
+
+  color: #63748e;
+
+  font-size: 0.59rem;
+  font-weight: 760;
+  letter-spacing: 0.105em;
+}
+
+.table-heading-amount {
+  text-align: right;
+}
+
+.table-heading-action {
+  text-align: center;
+}
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+.premium-transaction-row {
+  position: relative;
+
+  min-height: 72px;
+  padding: 10px 19px;
+
+  border-bottom: 1px solid #18263a;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(14, 25, 41, 0.94),
+      rgba(10, 18, 30, 0.96)
+    );
+
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.premium-transaction-row:nth-child(even) {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 22, 36, 0.96),
+      rgba(9, 17, 29, 0.98)
+    );
+}
+
+.premium-transaction-row:hover {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(18, 34, 54, 0.98),
+      rgba(12, 23, 38, 0.98)
+    );
+
+  box-shadow:
+    inset 3px 0 #1c98ef,
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.transaction-date-cell {
+  color: #8493aa;
+
+  font-size: 0.7rem;
+  font-weight: 560;
+
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.transaction-title-cell {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.premium-category-icon {
+  width: 37px;
+  height: 37px;
+  flex: 0 0 37px;
+
+  border-radius: 9px;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.035);
+}
+
+.transaction-copy {
+  min-width: 0;
+}
+
+.transaction-copy h3 {
+  margin: 0 0 4px;
+
+  overflow: hidden;
+
+  color: #edf4ff;
+
+  font-size: 0.79rem;
+  font-weight: 690;
+  letter-spacing: -0.01em;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transaction-copy > span {
+  display: block;
+
+  overflow: hidden;
+
+  color: #586a84;
+
+  font-size: 0.61rem;
+  font-weight: 520;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.transaction-category-cell,
+.transaction-payment-cell {
+  min-width: 0;
+}
+
+.category-badge,
+.payment-badge {
+  width: fit-content;
   max-width: 100%;
-  overflow-x: hidden;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 0.61rem;
+  font-weight: 680;
+
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.category-badge {
+  border: 1px solid rgba(79, 156, 230, 0.24);
+
+  background: rgba(40, 137, 221, 0.11);
+  color: #78baf0;
+}
+
+.category-badge-food {
+  border-color: rgba(255, 170, 75, 0.25);
+  background: rgba(255, 157, 50, 0.1);
+  color: #ffb15e;
+}
+
+.category-badge-transport {
+  border-color: rgba(64, 157, 255, 0.27);
+  background: rgba(48, 137, 238, 0.11);
+  color: #69b2ff;
+}
+
+.category-badge-shopping {
+  border-color: rgba(184, 115, 255, 0.27);
+  background: rgba(163, 90, 239, 0.11);
+  color: #c18cff;
+}
+
+.category-badge-bills {
+  border-color: rgba(255, 210, 75, 0.25);
+  background: rgba(232, 185, 38, 0.1);
+  color: #f3d264;
+}
+
+.category-badge-entertainment {
+  border-color: rgba(53, 216, 180, 0.25);
+  background: rgba(34, 189, 156, 0.1);
+  color: #60d9be;
+}
+
+.category-badge-health {
+  border-color: rgba(255, 90, 119, 0.27);
+  background: rgba(234, 66, 97, 0.1);
+  color: #ff8297;
+}
+
+.category-badge-education {
+  border-color: rgba(76, 211, 146, 0.26);
+  background: rgba(47, 186, 119, 0.1);
+  color: #65dda3;
+}
+
+.category-badge-travel {
+  border-color: rgba(48, 205, 229, 0.27);
+  background: rgba(36, 181, 207, 0.1);
+  color: #5ed5e9;
+}
+
+.category-badge-other {
+  border-color: rgba(148, 160, 183, 0.24);
+  background: rgba(121, 136, 161, 0.09);
+  color: #a5b1c3;
+}
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-badge {
+  justify-self: initial;
+
+  border: 1px solid #304158;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(44, 65, 91, 0.34),
+      rgba(25, 39, 58, 0.42)
+    );
+
+  color: #aab8cb;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.transaction-about-cell {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: #71829b;
+
+  font-size: 0.68rem;
+  font-weight: 510;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   AMOUNT
+========================================================= */
+
+.transaction-amount {
+  justify-self: end;
+
+  color: #ff7f91;
+
+  font-size: 0.77rem;
+  font-weight: 730;
+
+  letter-spacing: -0.01em;
+
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.transaction-action-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.transaction-delete {
+  width: 31px;
+  height: 31px;
+
+  border: 1px solid #26364d;
+  border-radius: 8px;
+
+  background: #0f1929;
+  color: #66768e;
+}
+
+.transaction-delete:hover {
+  border-color: rgba(255, 82, 110, 0.38);
+
+  background: rgba(225, 58, 86, 0.12);
+  color: #ff7189;
+}
+
+/* =========================================================
+   PANEL / PAGINATION POLISH
+========================================================= */
+
+.transactions-panel {
+  border-color: #213149;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0d1726 0%,
+      #09111d 100%
+    );
+
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.27),
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.transactions-panel-heading {
+  background:
+    linear-gradient(
+      180deg,
+      #0e1828,
+      #0b1422
+    );
+
+  border-bottom-color: #1d2c42;
+}
+
+.transaction-count {
+  border-color: #2b3d56;
+
+  background: #111d2f;
+  color: #91a1b8;
+}
+
+.transaction-pagination {
+  border-top: 1px solid #1b293d;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0b1421,
+      #08101b
+    );
+}
+
+/* =========================================================
+   RESPONSIVE OVERRIDES
+========================================================= */
+
+@media (max-width: 1100px) {
+  .expense-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .expense-filter-grid {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .clear-filter-button {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 760px) {
+  .expense-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-search,
+  .filter-control,
+  .payment-filter-control {
+    height: 42px;
+  }
+
+  .clear-filter-button {
+    width: 100%;
+  }
+
+  .transaction-table-shell {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .transaction-table-header,
+  .premium-transaction-row {
+    min-width: 980px;
+  }
+
+  .premium-transaction-row {
+    display: grid;
+    align-items: center;
+  }
+}
+
+/* =========================================================
+   SMARTMONEY — TRANSACTIONS PREMIUM VISUAL PASS
+   Typography + ambience + hierarchy + interaction
+   Scoped to Transactions page only.
+========================================================= */
+
+/* =========================================================
+   PAGE ATMOSPHERE
+========================================================= */
+
+.transactions-page {
+  position: relative;
+  isolation: isolate;
+
+  color: #eef5ff;
+}
+
+.transactions-page::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 30% 0%,
+      rgba(25, 113, 255, 0.07),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 35%,
+      rgba(22, 119, 255, 0.035),
+      transparent 28%
+    );
+}
+
+
+/* =========================================================
+   PAGE HEADER — MORE PRESENCE
+========================================================= */
+
+.transactions-header {
+  margin-bottom: 24px;
+}
+
+.transactions-header h1 {
+  color: #f8fbff;
+
+  font-size: clamp(2rem, 2.5vw, 2.55rem);
+  font-weight: 780;
+  line-height: 1.05;
+
+  letter-spacing: -0.045em;
+
+  text-shadow:
+    0 1px 18px rgba(255, 255, 255, 0.035);
+}
+
+.transactions-header p {
+  margin-top: 8px;
+
+  color: #91a2bb;
+
+  font-size: 0.94rem;
+  font-weight: 450;
+}
+
+
+/* =========================================================
+   ADD EXPENSE BUTTON
+========================================================= */
+
+.add-expense-primary {
+  min-height: 44px;
+
+  padding: 0 19px;
+
+  border-color: rgba(70, 166, 255, 0.58);
+
+  background:
+    linear-gradient(
+      135deg,
+      #0879eb 0%,
+      #159af5 100%
+    );
+
+  font-size: 0.86rem;
+  font-weight: 720;
+
+  box-shadow:
+    0 8px 28px rgba(0, 119, 255, 0.23),
+    inset 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.add-expense-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 13px 34px rgba(0, 119, 255, 0.32),
+    inset 0 1px rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================================================
+   SUMMARY CARDS — DEPTH + READABILITY
+========================================================= */
+
+.expense-stat-grid {
+  gap: 13px;
+  margin-bottom: 17px;
+}
+
+.expense-stat-card {
+  min-height: 102px;
+
+  padding: 17px 18px;
+
+  border-color: #20314a;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(42, 126, 255, 0.055),
+      transparent 42%
+    ),
+    linear-gradient(
+      145deg,
+      #0d1829 0%,
+      #09111e 100%
+    );
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.expense-stat-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #315071;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(42, 137, 255, 0.085),
+      transparent 45%
+    ),
+    linear-gradient(
+      145deg,
+      #101d30,
+      #0a1321
+    );
+
+  box-shadow:
+    0 15px 38px rgba(0, 0, 0, 0.25),
+    0 0 25px rgba(24, 126, 235, 0.035);
+}
+
+.stat-icon {
+  width: 43px;
+  height: 43px;
+  flex-basis: 43px;
+
+  font-size: 1rem;
+}
+
+.expense-stat-card span {
+  margin-bottom: 7px;
+
+  color: #91a1b9;
+
+  font-size: 0.74rem;
+  font-weight: 650;
+}
+
+.expense-stat-card strong {
+  color: #ffffff;
+
+  font-size: 1.25rem;
+  font-weight: 760;
+
+  letter-spacing: -0.025em;
+}
+
+
+/* =========================================================
+   TRANSACTION PANEL — PREMIUM NAVY SURFACE
+========================================================= */
+
+.transactions-panel {
+  border-color: #21324a;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0c1728 0%,
+      #08111e 100%
+    );
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.27),
+    inset 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.transactions-panel-heading {
+  min-height: 75px;
+
+  padding: 18px 20px;
+
+  border-bottom-color: #203149;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17, 31, 51, 0.96),
+      rgba(12, 23, 39, 0.96)
+    );
+}
+
+.section-eyebrow {
+  margin-bottom: 6px;
+
+  color: #37a9ff;
+
+  font-size: 0.65rem;
+  font-weight: 820;
+
+  letter-spacing: 0.145em;
+}
+
+.transactions-panel-heading h2 {
+  color: #f5f8fe;
+
+  font-size: 1.13rem;
+  font-weight: 730;
+}
+
+.transaction-count {
+  padding: 6px 10px;
+
+  border-color: #2b3e59;
+
+  background: #111e31;
+  color: #a3b2c7;
+
+  font-size: 0.7rem;
+}
+
+
+/* =========================================================
+   FILTER AREA
+========================================================= */
+
+.expense-toolbar {
+  padding: 13px 19px;
+
+  border-bottom-color: #1d2d43;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0b1626,
+      #091321
+    );
+}
+
+.expense-filter-grid {
+  width: 100%;
+
+  display: grid;
+
+  /* All three controls exactly equal */
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.premium-search,
+.filter-control {
+  width: 100%;
+  height: 43px;
+
+  padding: 0 13px;
+
+  border-color: #293c57;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #111e31,
+      #0e192a
+    );
+
+  color: #8093ad;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.premium-search:hover,
+.filter-control:hover {
+  border-color: #395575;
+
+  background:
+    linear-gradient(
+      180deg,
+      #142238,
+      #101c2f
+    );
+}
+
+.premium-search:focus-within,
+.filter-control:focus-within {
+  border-color: #278fe7;
+
+  background: #111f34;
+
+  box-shadow:
+    0 0 0 3px rgba(34, 143, 231, 0.08),
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.premium-search input,
+.filter-control select {
+  color: #dce7f6;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.premium-search input::placeholder {
+  color: #7789a3;
+  opacity: 1;
+}
+
+.filter-control select {
+  cursor: pointer;
+}
+
+.payment-filter-control {
+  width: 100%;
+}
+
+
+/* =========================================================
+   CLEAR FILTER
+========================================================= */
+
+.clear-filter-button {
+  min-height: 38px;
+
+  margin-top: 10px;
+
+  padding: 0 14px;
+
+  border-color: #2b405c;
+
+  background: #101c2d;
+  color: #9dafc5;
+
+  font-size: 0.75rem;
+}
+
+.clear-filter-button:hover {
+  border-color: #3d5b7e;
+
+  background: #15243a;
+  color: #e1e9f5;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.transaction-table-header {
+  min-height: 39px;
+
+  align-items: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.015);
+  border-bottom: 1px solid #263951;
+
+  background:
+    linear-gradient(
+      180deg,
+      #111f33 0%,
+      #0e1a2c 100%
+    );
+}
+
+.transaction-table-header span {
+  color: #91a4bf;
+
+  font-size: 0.68rem;
+  font-weight: 780;
+
+  letter-spacing: 0.105em;
+
+  text-shadow:
+    0 1px 10px rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   TRANSACTION ROWS
+========================================================= */
+
+.premium-transaction-row {
+  min-height: 73px;
+
+  border-bottom-color: #1d2d43;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0c1727 0%,
+      #0a1422 100%
+    );
+
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease,
+    border-color 150ms ease;
+}
+
+.premium-transaction-row:nth-child(even) {
+  background:
+    linear-gradient(
+      90deg,
+      #0a1524 0%,
+      #09121f 100%
+    );
+}
+
+.premium-transaction-row:hover {
+  background:
+    linear-gradient(
+      90deg,
+      #11243a 0%,
+      #0d1c2f 55%,
+      #0b1727 100%
+    );
+
+  box-shadow:
+    inset 3px 0 #219cf3,
+    inset 0 1px rgba(255, 255, 255, 0.018);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.transaction-date {
+  color: #a7b7cc;
+
+  font-size: 0.75rem;
+  font-weight: 590;
+
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.transaction-copy h3 {
+  margin-bottom: 5px;
+
+  color: #f6f9fe;
+
+  font-size: 0.88rem;
+  font-weight: 720;
+
+  letter-spacing: -0.012em;
+}
+
+.transaction-subtitle {
+  color: #71849f;
+
+  font-size: 0.66rem;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ICONS
+========================================================= */
+
+.premium-category-icon {
+  width: 42px;
+  height: 42px;
+  flex-basis: 42px;
+
+  border-radius: 10px;
+
+  font-size: 0.98rem;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.045),
+    0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   CATEGORY BADGES — BRIGHTER WITHOUT LOOKING CHILDISH
+========================================================= */
+
+.category-badge {
+  min-height: 23px;
+
+  padding: 3px 8px;
+
+  font-size: 0.65rem;
+  font-weight: 690;
+}
+
+.category-food {
+  color: #ffb35e;
+}
+
+.category-transport {
+  color: #61b3ff;
+}
+
+.category-shopping {
+  color: #c58cff;
+}
+
+.category-bills {
+  color: #f8d15f;
+}
+
+.category-entertainment {
+  color: #55dfbd;
+}
+
+.category-health {
+  color: #ff758d;
+}
+
+.category-education {
+  color: #61dfa2;
+}
+
+.category-travel {
+  color: #50d8ed;
+}
+
+.category-other {
+  color: #afbbcc;
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-badge {
+  min-height: 24px;
+
+  padding: 4px 9px;
+
+  border-color: #31455f;
+
+  background:
+    linear-gradient(
+      180deg,
+      #15243a,
+      #101c2e
+    );
+
+  color: #c2d0e2;
+
+  font-size: 0.66rem;
+  font-weight: 650;
+
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================================
+   ABOUT / NOTE
+========================================================= */
+
+.transaction-about {
+  overflow: hidden;
+
+  color: #8799b2;
+
+  font-size: 0.73rem;
+  font-weight: 500;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   EXPENSE AMOUNT — TRUE FINANCIAL RED
+========================================================= */
+
+.transaction-amount {
+  color: #ff404d !important;
+
+  font-size: 0.91rem;
+  font-weight: 790;
+
+  letter-spacing: -0.012em;
+
+  font-variant-numeric: tabular-nums;
+
+  text-shadow:
+    0 0 15px rgba(255, 55, 70, 0.08);
+}
+
+
+/* =========================================================
+   DELETE ACTION
+========================================================= */
+
+.transaction-delete {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #2a3d57;
+
+  background:
+    linear-gradient(
+      180deg,
+      #122037,
+      #0e192b
+    );
+
+  color: #7487a2;
+}
+
+.transaction-delete:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(255, 68, 82, 0.46);
+
+  background: rgba(255, 55, 70, 0.1);
+  color: #ff5360;
+
+  box-shadow:
+    0 5px 18px rgba(255, 50, 65, 0.08);
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.transaction-pagination {
+  min-height: 61px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.012);
+
+  background:
+    linear-gradient(
+      180deg,
+      #0b1625,
+      #09121f
+    );
+}
+
+.transaction-pagination p {
+  color: #8496af;
+
+  font-size: 0.72rem;
+}
+
+.transaction-pagination p strong {
+  color: #c4d0df;
+
+  font-weight: 680;
+}
+
+.pagination-controls button {
+  min-width: 33px;
+  height: 33px;
+
+  border-color: #2b3f59;
+
+  background: #101c2e;
+  color: #91a3bb;
+
+  font-size: 0.72rem;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  border-color: #3e5f82;
+
+  background: #16273e;
+  color: #edf4fc;
+}
+
+.pagination-controls button.active {
+  border-color: #2a9aff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #087cec,
+      #126dd4
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 16px rgba(0, 119, 255, 0.2),
+    inset 0 1px rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================================================
+   EMPTY / LOADING STATE
+========================================================= */
+
+.expenses-empty-state {
+  background:
+    linear-gradient(
+      180deg,
+      #0b1625,
+      #09121f
+    );
+
+  color: #8b9db5;
+
+  font-size: 0.84rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE PREMIUM PASS
+========================================================= */
+
+@media (max-width: 1100px) {
+  .expense-filter-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 850px) {
+  .expense-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-search,
+  .filter-control {
+    width: 100%;
+  }
 }
