@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import AppShell from "../components/layout/AppShell/AppShell";
-import Navbar from "../components/Navbar/Navbar.jsx";
 import SavingsGoalForm from "../components/Savings/SavingsGoalForm";
 import SavingsGoalsList from "../components/Savings/SavingsGoalsList";
 import SavingsHero from "../components/Savings/SavingsHero";
@@ -11,7 +10,8 @@ import "../styles/savings.css";
 import {
   createSavingsGoal,
   deleteSavingsGoal,
-  getSavingsGoals
+  getSavingsGoals,
+  updateSavingsGoal
 } from "../services/savingsService.js";
 
 function Savings() {
@@ -196,7 +196,6 @@ function Savings() {
 
   return (
     <AppShell>
-        <Navbar />
         <SavingsHero />
           <SavingsSummary
               totalSaved={totalSaved}

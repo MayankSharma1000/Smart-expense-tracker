@@ -22,7 +22,10 @@ ChartJS.register(
   Filler
 );
 
-function MonthlyOverview({ monthlyChart = [] }) {
+function MonthlyOverview({
+  monthlyChart = [],
+  variant = "default",
+}) {
   const totalExpenses = monthlyChart.reduce(
     (sum, item) => sum + Number(item.expenses || 0),
     0
@@ -47,24 +50,79 @@ function MonthlyOverview({ monthlyChart = [] }) {
         label: "Weekly Spending",
 
         data: monthlyChart.map(
-          (item) => item.expenses
+          (item) =>
+            Number(item.expenses) || 0
         ),
 
-        tension: 0.45,
+        tension: 0.42,
+
+        cubicInterpolationMode:
+          "monotone",
 
         fill: true,
 
         borderWidth: 3,
 
-        pointRadius: 5,
+        borderColor: "#2f7cff",
 
-        pointHoverRadius: 8,
+        backgroundColor: (context) => {
+          const chart =
+            context.chart;
 
-        backgroundColor:
-          "rgba(59,130,246,0.15)",
+          const {
+            ctx,
+            chartArea,
+          } = chart;
 
-        borderColor:
-          "rgb(59,130,246)"
+          if (!chartArea) {
+            return "rgba(47,124,255,0.18)";
+          }
+
+          const gradient =
+            ctx.createLinearGradient(
+              0,
+              chartArea.top,
+              0,
+              chartArea.bottom
+            );
+
+          gradient.addColorStop(
+            0,
+            "rgba(47,124,255,0.58)"
+          );
+
+          gradient.addColorStop(
+            0.45,
+            "rgba(37,99,235,0.22)"
+          );
+
+          gradient.addColorStop(
+            1,
+            "rgba(0,0,0,0)"
+          );
+
+          return gradient;
+        },
+
+        pointRadius: 4,
+
+        pointHoverRadius: 7,
+
+        pointBackgroundColor:
+          "#ffffff",
+
+        pointBorderColor:
+          "#2f7cff",
+
+        pointBorderWidth: 2,
+
+        pointHoverBackgroundColor:
+          "#ffffff",
+
+        pointHoverBorderColor:
+          "#60a5fa",
+
+        pointHoverBorderWidth: 3,
       }
     ]
   };
@@ -74,63 +132,110 @@ function MonthlyOverview({ monthlyChart = [] }) {
 
     maintainAspectRatio: false,
 
+    interaction: {
+      intersect: false,
+      mode: "index",
+    },
+
+    animation: {
+      duration: 750,
+      easing: "easeOutQuart",
+    },
+
     plugins: {
       legend: {
-        display: false
+        display: false,
       },
 
       tooltip: {
+        enabled: true,
+
+        backgroundColor:
+          "rgba(3, 7, 18, 0.96)",
+
+        borderColor:
+          "rgba(59, 130, 246, 0.55)",
+
+        borderWidth: 1,
+
+        titleColor: "#ffffff",
+
+        bodyColor: "#cbd5e1",
+
+        padding: 12,
+
+        displayColors: false,
+
         callbacks: {
           label: (context) =>
-            `₹${context.raw.toLocaleString(
+            `₹${Number(
+              context.raw || 0
+            ).toLocaleString(
               "en-IN"
-            )}`
-        }
-      }
+            )}`,
+        },
+      },
     },
 
     scales: {
       x: {
+        border: {
+          display: false,
+        },
+
         grid: {
-          color:
-            "rgba(148,163,184,0.08)"
+          display: false,
         },
 
         ticks: {
-          color:
-            getComputedStyle(
-              document.documentElement
-            ).getPropertyValue(
-              "--text-muted"
-            )
-        }
+          color: "#64748b",
+
+          font: {
+            size: 10,
+            weight: "600",
+          },
+        },
       },
 
       y: {
+        beginAtZero: true,
+
+        border: {
+          display: false,
+        },
+
         grid: {
           color:
-            "rgba(148,163,184,0.08)"
+            "rgba(148,163,184,0.075)",
         },
 
         ticks: {
-          color:
-            getComputedStyle(
-              document.documentElement
-            ).getPropertyValue(
-              "--text-muted"
-            ),
+          color: "#64748b",
+
+          font: {
+            size: 10,
+            weight: "600",
+          },
 
           callback: (value) =>
-            `₹${value.toLocaleString(
+            `₹${Number(
+              value
+            ).toLocaleString(
               "en-IN"
-            )}`
-        }
-      }
-    }
+            )}`,
+        },
+      },
+    },
   };
 
   return (
-    <div className="chart-card">
+    <div
+      className={`chart-card ${
+        variant === "analytics"
+          ? "chart-card--analytics"
+          : ""
+      }`}
+    >
       <div className="chart-title">
         <div>
           <h3>

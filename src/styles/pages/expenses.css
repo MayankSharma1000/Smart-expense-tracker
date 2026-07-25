@@ -2376,3 +2376,12 @@
     width: 100%;
   }
 }
+
+/* SMARTMONEY SHARED PAGE GEOMETRY */
+
+.transactions-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 32px;
+}

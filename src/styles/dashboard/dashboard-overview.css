@@ -1,37 +1,45 @@
+/* ==========================================================
+   FINANCIAL HEALTH GRID
+========================================================== */
+
 .financial-control-center{
 
     display:grid;
 
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
     gap:24px;
 
-    padding:12px;
+    align-items:stretch;
 
-    }
+    width:100%;
+}
 
-    .financial-control-center > *{
+/* ---------------------------------------------------------- */
+
+.financial-control-center>*{
+
+    min-width:0;
 
     height:100%;
+}
 
-    border-radius:24px;
+/* ---------------------------------------------------------- */
 
-    transition:var(--transition);
+.financial-control-center .card{
 
-    }
+    height:100%;
+}
 
-    .financial-control-center > *:hover{
+/* ---------------------------------------------------------- */
 
-    transform:translateY(-5px);
+@media(max-width:1080px){
 
-    }
+.financial-control-center{
 
-    @media(max-width:1000px){
+grid-template-columns:1fr;
 
-    .financial-control-center{
+}
 
-    grid-template-columns:1fr;
-
-    }
-
-    }
+}

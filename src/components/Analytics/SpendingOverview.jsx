@@ -67,7 +67,8 @@ function SpendingOverview({
             dashboardData?.monthlyChart || []
           }
           currency={currency}
-        />
+              variant="analytics"
+    />
       </div>
 
       <div className="quick-stats">

@@ -1,7 +1,7 @@
 import "../components/Analytics/Analytics.css";
 
+import AppShell from "../components/layout/AppShell";
 import DashboardSkeleton from "../components/Dashboard/DashboardSkeleton";
-import AppShell from "../components/layout/AppShell/AppShell.jsx";
 
 import { useAuth } from "../context/AuthContext";
 import { useDashboard } from "../hooks/useDashboard";
@@ -29,13 +29,22 @@ function Analytics() {
     "INR";
 
   const totalSavings =
-    dashboardData?.totalSavings || 0;
+    Number(dashboardData?.totalSavings) || 0;
+
+  const totalSavingsTarget =
+    Number(
+      dashboardData?.totalSavingsTarget
+    ) || 0;
 
   const currentInvestmentValue =
-    dashboardData?.currentInvestmentValue || 0;
+    Number(
+      dashboardData?.currentInvestmentValue
+    ) || 0;
 
   const investmentProfit =
-    dashboardData?.investmentProfit || 0;
+    Number(
+      dashboardData?.investmentProfit
+    ) || 0;
 
   if (loading) {
     return (
@@ -47,58 +56,58 @@ function Analytics() {
 
   return (
     <AppShell>
-      <AnalyticsHeader
-        user={user}
-        period={dashboardData?.period}
-      />
+      <main className="analytics-page">
+        <AnalyticsHeader
+          period={dashboardData?.period}
+        />
 
-      <AIFinancialCoach
-        user={user}
-        dashboardData={dashboardData}
-      />
-
-      <section className="analytics-main-grid">
-        <FinancialHealth
+        <AIFinancialCoach
+          user={user}
           dashboardData={dashboardData}
         />
 
-        <SpendingOverview
-          dashboardData={dashboardData}
-          currency={currency}
-        />
+        <section className="analytics-primary-grid">
+          <FinancialHealth
+            dashboardData={dashboardData}
+          />
 
-        <SavingsGoals
-          totalSavings={totalSavings}
-          totalSavingsTarget={
-            dashboardData?.totalSavingsTarget || 0
-          }
-          currency={currency}
-        />
+          <SpendingOverview
+            dashboardData={dashboardData}
+            currency={currency}
+          />
+        </section>
 
-        <InvestmentOverview
-          totalSavings={totalSavings}
-          currentInvestmentValue={
-            currentInvestmentValue
-          }
-          investmentProfit={
-            investmentProfit
-          }
-          currency={currency}
-        />
-      </section>
+        <section className="analytics-secondary-grid">
+          <SavingsGoals
+            totalSavings={totalSavings}
+            totalSavingsTarget={
+              totalSavingsTarget
+            }
+            currency={currency}
+          />
 
-      <div className="analytics-bottom-grid">
+          <InvestmentOverview
+            totalSavings={totalSavings}
+            currentInvestmentValue={
+              currentInvestmentValue
+            }
+            investmentProfit={
+              investmentProfit
+            }
+            currency={currency}
+          />
+        </section>
+
         <ActivityTimeline
-          transactions={
-            dashboardData?.recentTransactions || []
+          activities={
+            dashboardData?.recentTransactions ||
+            []
           }
           currency={currency}
         />
-      </div>
 
-      <AnalyticsFooter
-        user={user}
-      />
+        <AnalyticsFooter user={user} />
+      </main>
     </AppShell>
   );
 }

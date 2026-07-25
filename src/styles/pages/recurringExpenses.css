@@ -957,3 +957,12 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* SMARTMONEY SHARED PAGE GEOMETRY */
+
+.recurring-page {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 32px;
+}

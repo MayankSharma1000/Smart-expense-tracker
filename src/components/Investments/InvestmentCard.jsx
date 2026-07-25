@@ -1,160 +1,155 @@
 import "./InvestmentCard.css";
 
 import {
-    FaArrowTrendDown,
-    FaArrowTrendUp
+  FaArrowTrendDown,
+  FaArrowTrendUp,
+  FaPen,
+  FaTrashCan
 } from "react-icons/fa6";
 
-import Badge from "@/components/ui/Badge";
-import Card from "@/components/ui/Card";
-import IconBox from "@/components/ui/IconBox";
-
 function InvestmentCard({
-
   investment,
-
   onEdit,
-
   onDelete
-
 }) {
-
   const {
-
     name,
-
     type,
-
     currentValue,
-
     investedAmount,
-
-    platform
-
+    platform,
+    purchaseDate
   } = investment;
 
-  const profit = currentValue - investedAmount;
+  const invested = Number(investedAmount || 0);
+  const current = Number(currentValue || 0);
+
+  const profit = current - invested;
+
+  const percentage =
+    invested > 0
+      ? (profit / invested) * 100
+      : 0;
 
   const isProfit = profit >= 0;
 
+  const currency = (value) =>
+    `₹${Number(value || 0).toLocaleString("en-IN")}`;
+
+  const formattedDate = purchaseDate
+    ? new Date(purchaseDate).toLocaleDateString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      )
+    : "";
+
   return (
+    <article className="portfolio-investment-card">
 
-    <Card className="investment-card">
+      <div className="portfolio-investment-main">
 
-      <div className="investment-header">
-
-        <div>
-
-          <h3>{name}</h3>
-
-          <p>{platform}</p>
-
-        </div>
-
-        <IconBox
-          color={isProfit ? "success" : "danger"}
+        <div
+          className={`portfolio-type-icon ${
+            isProfit ? "positive" : "negative"
+          }`}
         >
+          {isProfit
+            ? <FaArrowTrendUp />
+            : <FaArrowTrendDown />}
+        </div>
 
-          {
+        <div className="portfolio-investment-identity">
+          <div className="portfolio-title-row">
+            <h3>{name}</h3>
 
+            <span className="portfolio-type-chip">
+              {type}
+            </span>
+          </div>
+
+          <p>
+            {formattedDate && (
+              <>
+                Invested {formattedDate}
+              </>
+            )}
+
+            {formattedDate && platform && (
+              <span className="portfolio-dot">•</span>
+            )}
+
+            {platform}
+          </p>
+        </div>
+
+      </div>
+
+      <div className="portfolio-metric">
+        <span>Invested</span>
+        <strong>{currency(invested)}</strong>
+      </div>
+
+      <div className="portfolio-metric">
+        <span>Current</span>
+        <strong>{currency(current)}</strong>
+      </div>
+
+      <div className="portfolio-metric portfolio-return">
+        <span>Profit / Loss</span>
+
+        <strong
+          className={
             isProfit
-              ? <FaArrowTrendUp />
-              : <FaArrowTrendDown />
-
+              ? "profit"
+              : "loss"
           }
+        >
+          {isProfit ? "+" : "-"}
+          {currency(Math.abs(profit))}
+        </strong>
 
-        </IconBox>
-
+        <small
+          className={
+            isProfit
+              ? "profit"
+              : "loss"
+          }
+        >
+          {isProfit ? "+" : "-"}
+          {Math.abs(percentage).toFixed(2)}%
+        </small>
       </div>
 
-      <div className="investment-body">
-
-        <div className="investment-row">
-
-          <span>Type</span>
-
-          <Badge variant="primary">
-
-            {type}
-
-          </Badge>
-
-        </div>
-
-        <div className="investment-row">
-
-          <span>Invested</span>
-
-          <strong>
-
-            ₹{investedAmount.toLocaleString("en-IN")}
-
-          </strong>
-
-        </div>
-
-        <div className="investment-row">
-
-          <span>Current</span>
-
-          <strong>
-
-            ₹{currentValue.toLocaleString("en-IN")}
-
-          </strong>
-
-        </div>
-
-        <div className="investment-row">
-
-          <span>
-
-            Profit / Loss
-
-          </span>
-
-          <strong
-            className={
-              isProfit
-                ? "profit"
-                : "loss"
-            }
-          >
-
-            ₹{Math.abs(profit).toLocaleString("en-IN")}
-
-          </strong>
-
-        </div>
-
-      </div>
-
-      <div className="investment-actions">
+      <div className="portfolio-actions">
 
         <button
-          className="edit-btn"
+          type="button"
+          className="portfolio-edit-btn"
+          aria-label={`Edit ${name}`}
+          title="Edit investment"
           onClick={() => onEdit(investment)}
         >
-
-          Edit
-
+          <FaPen />
         </button>
 
         <button
-          className="delete-btn"
+          type="button"
+          className="portfolio-delete-btn"
+          aria-label={`Delete ${name}`}
+          title="Delete investment"
           onClick={() => onDelete(investment._id)}
         >
-
-          Delete
-
+          <FaTrashCan />
         </button>
 
       </div>
 
-    </Card>
-
+    </article>
   );
-
 }
 
 export default InvestmentCard;

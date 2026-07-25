@@ -44,3 +44,44 @@ export const getAuthHeader = () => {
     }
   };
 };
+/* ========================= */
+/* SETTINGS / PROFILE */
+/* ========================= */
+
+export const updateUserProfile = async (
+  profileData
+) => {
+  const response = await axios.patch(
+    `${AUTH_API_URL}/profile`,
+    profileData,
+    getAuthHeader()
+  );
+
+  return response.data;
+};
+
+export const changeUserPassword = async (
+  passwordData
+) => {
+  const response = await axios.patch(
+    `${AUTH_API_URL}/password`,
+    passwordData,
+    getAuthHeader()
+  );
+
+  return response.data;
+};
+
+export const deleteUserAccount = async (
+  credentials
+) => {
+  const response = await axios.delete(
+    `${AUTH_API_URL}/account`,
+    {
+      ...getAuthHeader(),
+      data: credentials,
+    }
+  );
+
+  return response.data;
+};

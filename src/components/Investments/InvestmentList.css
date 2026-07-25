@@ -1,29 +1,25 @@
-.investment-grid{
+.investment-grid {
+  width: 100%;
+  min-width: 0;
 
-    display:grid;
+  display: grid;
+  grid-template-columns: 1fr;
 
-    grid-template-columns:
-    repeat(
-    auto-fit,
-    minmax(340px,1fr)
-    );
+  gap: 10px;
+}
 
-    gap:24px;
+.investment-empty {
+  padding: 54px 20px;
 
-    }
+  text-align: center;
 
-    .investment-empty{
+  border:
+    1px dashed rgba(255,255,255,.10);
 
-    padding:80px;
+  border-radius: 14px;
 
-    text-align:center;
+  color: #8290a8;
 
-    border:1px dashed var(--border);
-
-    border-radius:20px;
-
-    color:var(--text-secondary);
-
-    background:var(--surface);
-
-    }
+  background:
+    rgba(255,255,255,.015);
+}
