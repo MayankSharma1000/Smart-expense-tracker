@@ -1,22 +1,22 @@
 .investment-card{
+    --widget-accent:#a78bfa;
+    --widget-accent-soft:rgba(139,92,246,.075);
 }
 
 .investment-icon{
-
-    background:linear-gradient(
-        135deg,
-        #6366f1,
-        #8b5cf6
-    );
-
+    background:
+        linear-gradient(
+            135deg,
+            #6d5ce7,
+            #8b5cf6
+        );
 }
 
 .investment-progress-fill{
-
-    background:linear-gradient(
-        90deg,
-        #6366f1,
-        #8b5cf6
-    );
-
+    background:
+        linear-gradient(
+            90deg,
+            #7c6cf2,
+            #a78bfa
+        );
 }

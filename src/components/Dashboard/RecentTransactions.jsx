@@ -1,90 +1,198 @@
-import React from "react";
-import "./RecentTransactions.css";
+import { useNavigate } from "react-router-dom";
+
+import {
+  FaArrowRight,
+  FaReceipt,
+} from "react-icons/fa6";
+
 import { categoryIcons } from "../../utils/categoryIcons";
 
-function RecentTransactions({ transactions = [] }) {
+import "./RecentTransactions.css";
+
+function RecentTransactions({
+  transactions = [],
+  currency = "INR",
+}) {
+  const navigate = useNavigate();
+
+  const formatter = new Intl.NumberFormat(
+    "en-IN",
+    {
+      style: "currency",
+      currency,
+      maximumFractionDigits: 0,
+    }
+  );
+
+  const visibleTransactions =
+    transactions.slice(0, 5);
+
   return (
     <div className="dashboard-widget recent-transactions">
 
-      <div className="widget-header">
+      <div className="recent-header">
 
         <div>
-          <h2>Recent Transactions</h2>
-          <p>Your latest financial activity</p>
+          <span className="recent-eyebrow">
+            ACTIVITY
+          </span>
+
+          <h3>
+            Recent Transactions
+          </h3>
+
+          <p>
+            Your latest recorded expenses.
+          </p>
         </div>
 
-        <button className="view-all-btn">
-        See History →
+        <button
+          type="button"
+          className="view-all-btn"
+          onClick={() =>
+            navigate("/expenses")
+          }
+        >
+          <span>History</span>
+          <FaArrowRight />
         </button>
 
       </div>
 
-      {transactions.length === 0 ? (
+      {visibleTransactions.length === 0 ? (
 
-        <div className="empty-widget">
-          <span className="empty-icon">📄</span>
+        <div className="recent-empty">
 
-          <h3>No Transactions Yet</h3>
+          <div className="recent-empty-icon">
+            <FaReceipt />
+          </div>
+
+          <h4>
+            No transactions yet
+          </h4>
 
           <p>
-            Start adding expenses to build your financial history.
+            Expenses you add will appear here
+            for quick access.
           </p>
+
+          <button
+            type="button"
+            onClick={() =>
+              navigate("/expenses")
+            }
+          >
+            Add an expense
+            <FaArrowRight />
+          </button>
+
         </div>
 
       ) : (
 
-        transactions.slice(0, 5).map((transaction) => (
+        <div className="transaction-list">
 
-          <div
-            key={transaction._id}
-            className="transaction-item"
-          >
+          {visibleTransactions.map(
+            (transaction, index) => {
 
-            <div className="transaction-left">
+              const title =
+                transaction.title ||
+                transaction.category ||
+                "Expense";
 
-              <div className="transaction-icon">
+              const category =
+                transaction.category ||
+                "Other";
 
-                {categoryIcons[transaction.category] ||
-                  categoryIcons.Other}
+              const date =
+                transaction.date
+                  ? new Date(
+                      transaction.date
+                    ).toLocaleDateString(
+                      "en-IN",
+                      {
+                        day: "2-digit",
+                        month: "short",
+                      }
+                    )
+                  : "--";
 
-              </div>
+              return (
+                <button
+                  type="button"
+                  key={
+                    transaction._id ||
+                    `${title}-${index}`
+                  }
+                  className="transaction-item"
+                  onClick={() =>
+                    navigate("/expenses")
+                  }
+                >
 
-              <div>
+                  <div className="transaction-left">
 
-                <h4>
-                  {transaction.title || transaction.category}
-                </h4>
+                    <div className="transaction-icon">
+                      {categoryIcons[
+                        category
+                      ] ||
+                        categoryIcons.Other}
+                    </div>
 
-                <span>
+                    <div className="transaction-copy">
 
-                  {transaction.category}
+                      <h4>
+                        {title}
+                      </h4>
 
-                  {" • "}
+                      <span>
+                        {category}
+                        <i />
+                        {date}
+                      </span>
 
-                  {new Date(
-                    transaction.date
-                  ).toLocaleDateString("en-IN")}
+                    </div>
 
-                </span>
+                  </div>
 
-              </div>
+                  <div className="transaction-value">
 
-            </div>
+                    <strong>
+                      -
+                      {formatter.format(
+                        Number(
+                          transaction.amount
+                        ) || 0
+                      )}
+                    </strong>
 
-            <strong className="transaction-amount">
+                    <span>
+                      Expense
+                    </span>
 
-              ₹
-              {Number(
-                transaction.amount || 0
-              ).toLocaleString("en-IN")}
+                  </div>
 
-            </strong>
+                </button>
+              );
+            }
+          )}
 
-          </div>
-
-        ))
+        </div>
 
       )}
+
+      <div className="recent-footer">
+
+        <span>
+          SmartMoney Activity
+        </span>
+
+        <span className="recent-live">
+          <i />
+          Synced
+        </span>
+
+      </div>
 
     </div>
   );

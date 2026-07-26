@@ -2,16 +2,24 @@ import Card from "@/components/ui/Card";
 import "@/styles/dashboard/financial-widget.css";
 import "./BudgetProgress.css";
 
-import { FaMoneyBillWave } from "react-icons/fa";
+import {
+  FaCalendarDays,
+  FaMoneyBillWave,
+} from "react-icons/fa6";
 
 function BudgetProgress({
   monthlyBudget = 0,
   spent = 0,
   remaining = 0,
   percentageUsed = 0,
+  currency = "INR",
 }) {
+  const budget = Number(monthlyBudget) || 0;
+  const spentAmount = Number(spent) || 0;
+  const remainingAmount = Number(remaining) || 0;
+
   const safePercentage = Math.min(
-    Math.max(percentageUsed || 0, 0),
+    Math.max(Number(percentageUsed) || 0, 0),
     100
   );
 
@@ -29,128 +37,103 @@ function BudgetProgress({
   );
 
   const dailyBudget = Math.max(
-    Math.floor(remaining / remainingDays),
+    Math.floor(remainingAmount / remainingDays),
     0
   );
+
+  const formatter = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  });
+
+  const status =
+    safePercentage >= 90
+      ? "Critical"
+      : safePercentage >= 70
+        ? "Watch"
+        : "Healthy";
+
+  const statusClass =
+    safePercentage >= 90
+      ? "danger"
+      : safePercentage >= 70
+        ? "warning"
+        : "success";
 
   return (
     <Card
       elevated
       className="financial-widget budget-card"
     >
-      {/* Header */}
-
       <div className="widget-header">
-
         <div className="budget-icon">
           <FaMoneyBillWave />
         </div>
 
         <div className="widget-heading">
-
           <h3 className="widget-title">
             Monthly Budget
           </h3>
 
           <p className="widget-subtitle">
-            Current month spending limit
+            Spending limit for this month
           </p>
 
-          <span
-            className={`widget-pill ${
-              safePercentage >= 90
-                ? "danger"
-                : safePercentage >= 70
-                ? "warning"
-                : "success"
-            }`}
-          >
-            {safePercentage >= 90
-              ? "Critical"
-              : safePercentage >= 70
-              ? "Watch"
-              : "Healthy"}
+          <span className={`widget-pill ${statusClass}`}>
+            {status}
           </span>
-
         </div>
-
       </div>
-
-      {/* Main Amount */}
 
       <div className="widget-value">
-        ₹{monthlyBudget.toLocaleString("en-IN")}
+        {formatter.format(budget)}
       </div>
 
-      {/* Progress */}
-
       <div className="widget-progress-wrapper">
-
         <div className="widget-progress">
-
           <div
             className="budget-progress-fill"
-            style={{
-              width: `${safePercentage}%`,
-            }}
+            style={{ width: `${safePercentage}%` }}
           />
-
         </div>
 
         <div className="widget-progress-info">
-
+          <span>{safePercentage}% used</span>
           <span>
-            {safePercentage}% Used
+            {formatter.format(remainingAmount)} left
           </span>
-
-          <span>
-            ₹{remaining.toLocaleString("en-IN")} Left
-          </span>
-
         </div>
-
       </div>
 
-      {/* Metrics */}
-
       <div className="widget-metrics">
-
         <div className="widget-metric">
-
           <span className="widget-metric-label">
             Spent
           </span>
 
           <strong className="widget-metric-value">
-            ₹{spent.toLocaleString("en-IN")}
+            {formatter.format(spentAmount)}
           </strong>
-
         </div>
 
         <div className="widget-metric">
-
           <span className="widget-metric-label">
-            Daily Budget
+            Daily budget
           </span>
 
           <strong className="widget-metric-value">
-            ₹{dailyBudget.toLocaleString("en-IN")}
+            {formatter.format(dailyBudget)}
           </strong>
-
         </div>
-
       </div>
-
-      {/* Footer */}
 
       <div className="widget-footer">
-
+        <FaCalendarDays />
         <span>
-          🗓 Budget resets in {remainingDays} days
+          Resets in {remainingDays} days
         </span>
-
       </div>
-
     </Card>
   );
 }

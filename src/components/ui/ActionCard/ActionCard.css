@@ -1,150 +1,356 @@
+
+/* ==========================================================
+   SMARTMONEY — PREMIUM ACTION CARD
+========================================================== */
+
 .action-card{
+    --action-accent: #60a5fa;
+    --action-soft: rgba(96,165,250,.10);
+    --action-border: rgba(96,165,250,.16);
+
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
 
     width:100%;
+    min-width:0;
+    min-height:92px;
 
     display:flex;
-
     align-items:center;
+    gap:14px;
 
-    gap:18px;
+    padding:16px 17px;
 
-    padding:22px;
-
+    appearance:none;
     cursor:pointer;
-
     text-align:left;
-
-    border:none;
-
-    border-radius:24px;
-
-    background:var(--glass-bg);
-
-    backdrop-filter:blur(var(--glass-blur));
-
-    border:1px solid var(--border);
-
-    box-shadow:var(--shadow-card);
-
-    transition:all .25s ease;
-
-    }
-
-    .action-card:hover{
-
-    border-color:var(--border-hover);
-
-    box-shadow:var(--shadow-hover);
-
-    }
-
-    .action-card-icon{
-
-    width:62px;
-
-    height:62px;
-
-    border-radius:18px;
-
-    display:grid;
-
-    place-items:center;
-
-    font-size:24px;
-
-    color:white;
-
-    flex-shrink:0;
-
-    }
-
-    .action-card-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:5px;
-
-    }
-
-    .action-card-content h3{
-
-    margin:0;
-
-    font-size:18px;
-
-    font-weight:700;
+    font:inherit;
 
     color:var(--text-primary);
 
-    }
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,24,39,.88),
+            rgba(10,15,27,.96)
+        );
 
-    .action-card-content p{
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
 
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.16),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    transition:
+        border-color .22s ease,
+        background .22s ease,
+        box-shadow .22s ease;
+}
+
+
+/* ----------------------------------------------------------
+   ACCENT GLOW
+---------------------------------------------------------- */
+
+.action-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    left:-38px;
+    top:-48px;
+
+    border-radius:50%;
+
+    background:var(--action-accent);
+
+    opacity:.10;
+    filter:blur(35px);
+
+    pointer-events:none;
+    z-index:-1;
+
+    transition:
+        opacity .22s ease,
+        transform .22s ease;
+}
+
+.action-card::after{
+    content:"";
+
+    position:absolute;
+
+    left:17px;
+    right:17px;
+    bottom:0;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--action-accent),
+            transparent
+        );
+
+    opacity:0;
+
+    transition:opacity .22s ease;
+}
+
+
+/* ----------------------------------------------------------
+   HOVER
+---------------------------------------------------------- */
+
+.action-card:hover{
+    border-color:var(--action-border);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,28,45,.96),
+            rgba(11,17,30,.98)
+        );
+
+    box-shadow:
+        0 16px 38px rgba(0,0,0,.22),
+        0 0 24px var(--action-soft),
+        inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.action-card:hover::before{
+    opacity:.17;
+    transform:scale(1.15);
+}
+
+.action-card:hover::after{
+    opacity:.65;
+}
+
+.action-card:focus-visible{
+    outline:2px solid var(--action-accent);
+    outline-offset:3px;
+}
+
+
+/* ----------------------------------------------------------
+   ICON
+---------------------------------------------------------- */
+
+.action-card-icon{
+    width:44px;
+    height:44px;
+
+    flex:0 0 44px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:13px;
+
+    font-size:17px;
+
+    color:var(--action-accent);
+
+    background:var(--action-soft);
+
+    border:1px solid var(--action-border);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+    transition:
+        transform .22s ease,
+        background .22s ease;
+}
+
+.action-card:hover .action-card-icon{
+    transform:translateY(-1px);
+    background:color-mix(
+        in srgb,
+        var(--action-accent) 16%,
+        transparent
+    );
+}
+
+
+/* ----------------------------------------------------------
+   TYPOGRAPHY
+---------------------------------------------------------- */
+
+.action-card-content{
+    min-width:0;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:3px;
+}
+
+.action-card-content h3{
     margin:0;
 
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+
+    color:#f8fafc;
+
     font-size:14px;
+    line-height:1.3;
+    font-weight:650;
 
-    line-height:1.5;
+    letter-spacing:-.15px;
+}
 
-    color:var(--text-secondary);
+.action-card-content p{
+    margin:0;
 
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+
+    color:#7f8ca5;
+
+    font-size:12px;
+    line-height:1.45;
+    font-weight:450;
+}
+
+
+/* ==========================================================
+   ACCENT VARIANTS
+========================================================== */
+
+.action-card.blue{
+    --action-accent:#60a5fa;
+    --action-soft:rgba(59,130,246,.11);
+    --action-border:rgba(96,165,250,.20);
+}
+
+.action-card.green{
+    --action-accent:#34d399;
+    --action-soft:rgba(16,185,129,.10);
+    --action-border:rgba(52,211,153,.18);
+}
+
+.action-card.purple{
+    --action-accent:#a78bfa;
+    --action-soft:rgba(139,92,246,.10);
+    --action-border:rgba(167,139,250,.18);
+}
+
+.action-card.orange{
+    --action-accent:#fb923c;
+    --action-soft:rgba(249,115,22,.10);
+    --action-border:rgba(251,146,60,.18);
+}
+
+.action-card.red{
+    --action-accent:#f87171;
+    --action-soft:rgba(239,68,68,.10);
+    --action-border:rgba(248,113,113,.18);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:620px){
+
+    .action-card{
+        min-height:82px;
+        padding:14px 15px;
     }
 
-    /* ---------- Colors ---------- */
+    .action-card-icon{
+        width:40px;
+        height:40px;
+        flex-basis:40px;
+        border-radius:12px;
+    }
+}
 
-    .action-card.blue .action-card-icon{
+/* ==========================================================
+   SMARTMONEY PREMIUM QUICK ACTIONS
+========================================================== */
 
-    background:
+.action-card{
+  isolation:isolate;
+  border-color:var(--action-border);
+  background:
+    radial-gradient(circle at 0% 50%,var(--action-soft),transparent 42%),
+    linear-gradient(135deg,rgba(13,20,35,.99),rgba(7,12,24,.99));
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.2),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+.action-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0;
+  background:
     linear-gradient(
-    135deg,
-    #3B82F6,
-    #60A5FA
+      110deg,
+      transparent 15%,
+      color-mix(in srgb,var(--action-accent) 8%,transparent),
+      transparent 70%
     );
+  transition:opacity .22s ease;
+  pointer-events:none;
+}
 
-    }
-
-    .action-card.green .action-card-icon{
-
-    background:
+.action-card::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:18px;
+  right:18px;
+  height:1px;
+  opacity:.32;
+  background:
     linear-gradient(
-    135deg,
-    #16A34A,
-    #22C55E
+      90deg,
+      transparent,
+      var(--action-accent),
+      transparent
     );
+  pointer-events:none;
+}
 
-    }
+.action-card:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb,var(--action-accent) 40%,transparent);
+  box-shadow:
+    0 20px 42px rgba(0,0,0,.27),
+    0 0 30px color-mix(in srgb,var(--action-accent) 6%,transparent);
+}
 
-    .action-card.purple .action-card-icon{
+.action-card:hover::before{
+  opacity:1;
+}
 
-    background:
-    linear-gradient(
-    135deg,
-    #7C3AED,
-    #A855F7
-    );
+.action-card-icon{
+  border:1px solid color-mix(in srgb,var(--action-accent) 24%,transparent);
+  box-shadow:
+    0 7px 20px color-mix(in srgb,var(--action-accent) 12%,transparent);
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease;
+}
 
-    }
-
-    .action-card.orange .action-card-icon{
-
-    background:
-    linear-gradient(
-    135deg,
-    #EA580C,
-    #FB923C
-    );
-
-    }
-
-    .action-card.red .action-card-icon{
-
-    background:
-    linear-gradient(
-    135deg,
-    #DC2626,
-    #EF4444
-    );
-
-    }
+.action-card:hover .action-card-icon{
+  transform:scale(1.06);
+  box-shadow:
+    0 10px 28px color-mix(in srgb,var(--action-accent) 19%,transparent);
+}

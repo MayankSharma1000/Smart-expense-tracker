@@ -1,155 +1,454 @@
+/* ==========================================================
+   SMARTMONEY — RECENT ACTIVITY
+========================================================== */
+
 .recent-transactions{
-
-    background:#0D0D0D;
-
-    border:1px solid rgba(255,255,255,.06);
-
-    border-radius:20px;
-
-    padding:32px;
-
-    box-shadow:
-0 10px 28px rgba(0,0,0,.28);
-
-}
-
-.widget-header{
+    position:relative;
 
     display:flex;
+    flex-direction:column;
 
+    min-height:430px;
+
+    padding:22px;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(59,130,246,.075),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(17,24,39,.93),
+            rgba(8,13,25,.97)
+        );
+
+    border:1px solid rgba(148,163,184,.11);
+
+    box-shadow:
+        0 22px 55px rgba(0,0,0,.24),
+        inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.recent-header{
+    display:flex;
+
+    align-items:flex-start;
     justify-content:space-between;
 
-    align-items:center;
+    gap:14px;
 
-    margin-bottom:24px;
-
+    margin-bottom:20px;
 }
 
-.widget-header h2{
+.recent-eyebrow{
+    display:block;
 
+    margin-bottom:7px;
+
+    color:#60a5fa;
+
+    font-size:.62rem;
+    font-weight:800;
+
+    letter-spacing:.14em;
+}
+
+.recent-header h3{
     margin:0;
 
-    font-size:1.5rem;
+    color:var(--text-primary);
 
-    font-weight:700;
+    font-size:1rem;
+    font-weight:750;
 
+    letter-spacing:-.025em;
 }
 
-.widget-header p{
+.recent-header p{
+    margin:6px 0 0;
 
-    margin-top:6px;
+    color:var(--text-muted);
 
-    color:var(--text-secondary);
-
-    font-size:14px;
-
+    font-size:.72rem;
+    line-height:1.5;
 }
+
+
+/* ==========================================================
+   HISTORY BUTTON
+========================================================== */
 
 .view-all-btn{
+    display:inline-flex;
 
-    border:none;
+    align-items:center;
+    justify-content:center;
 
-    background:none;
+    gap:7px;
 
-    color:var(--accent-primary);
+    flex-shrink:0;
+
+    min-height:32px;
+
+    padding:7px 10px;
+
+    border-radius:10px;
+
+    border:1px solid rgba(148,163,184,.1);
+
+    background:rgba(255,255,255,.025);
+
+    color:#94a3b8;
 
     cursor:pointer;
 
-    font-weight:600;
+    font:inherit;
 
+    font-size:.68rem;
+    font-weight:700;
+
+    transition:
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        transform .2s ease;
+}
+
+.view-all-btn svg{
+    font-size:.62rem;
+}
+
+.view-all-btn:hover{
+    color:#dbeafe;
+
+    border-color:rgba(59,130,246,.25);
+
+    background:rgba(59,130,246,.07);
+
+    transform:translateX(2px);
+}
+
+
+/* ==========================================================
+   TRANSACTION LIST
+========================================================== */
+
+.transaction-list{
+    display:flex;
+    flex-direction:column;
+
+    gap:7px;
 }
 
 .transaction-item{
-    cursor:pointer;
+    width:100%;
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    padding:20px;
-    border-radius:18px;
-    margin-bottom:14px;
-    background:#111111;
-    border:1px solid rgba(255,255,255,.04);
-    transition:.3s ease;
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:11px 10px;
+
+    border:1px solid transparent;
+    border-radius:14px;
+
+    background:transparent;
+
+    color:inherit;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    font:inherit;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
 }
 
 .transaction-item:hover{
+    background:rgba(255,255,255,.035);
 
-    transform:translateY(-3px);
+    border-color:rgba(148,163,184,.075);
 
-    border-color:rgba(37,99,235,.25);
-
-    background:#141414;
-
+    transform:translateX(2px);
 }
 
 .transaction-left{
-
     display:flex;
 
     align-items:center;
 
-    gap:16px;
+    min-width:0;
 
+    gap:11px;
 }
 
 .transaction-icon{
+    width:38px;
+    height:38px;
 
-    width:50px;
+    display:grid;
 
-    height:50px;
+    place-items:center;
 
+    flex-shrink:0;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(59,130,246,.14),
+            rgba(37,99,235,.055)
+        );
+
+    border:1px solid rgba(59,130,246,.12);
+
+    color:#60a5fa;
+
+    font-size:.88rem;
+}
+
+.transaction-copy{
+    min-width:0;
+}
+
+.transaction-copy h4{
+    overflow:hidden;
+
+    margin:0 0 4px;
+
+    color:#e5edf8;
+
+    font-size:.76rem;
+    font-weight:700;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.transaction-copy span{
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:6px;
 
-    border-radius:14px;
+    color:var(--text-muted);
 
-    background:rgba(59,130,246,.12);
-
-    color:var(--accent-primary);
-
-    font-size:1.2rem;
-
+    font-size:.63rem;
+    font-weight:550;
 }
 
-.transaction-left h4{
+.transaction-copy span i{
+    width:3px;
+    height:3px;
+
+    border-radius:50%;
+
+    background:#475569;
+}
+
+.transaction-value{
+    display:flex;
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    flex-shrink:0;
+
+    gap:3px;
+}
+
+.transaction-value strong{
+    color:#f1f5f9;
+
+    font-size:.73rem;
+    font-weight:750;
+
+    white-space:nowrap;
+}
+
+.transaction-value span{
+    color:#64748b;
+
+    font-size:.58rem;
+    font-weight:650;
+
+    text-transform:uppercase;
+
+    letter-spacing:.06em;
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.recent-empty{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:270px;
+
+    padding:26px 14px;
+
+    text-align:center;
+}
+
+.recent-empty-icon{
+    width:50px;
+    height:50px;
+
+    display:grid;
+
+    place-items:center;
+
+    margin-bottom:15px;
+
+    border-radius:15px;
+
+    background:rgba(59,130,246,.08);
+
+    border:1px solid rgba(59,130,246,.12);
+
+    color:#60a5fa;
+
+    font-size:1rem;
+}
+
+.recent-empty h4{
+    margin:0 0 7px;
+
+    color:#f1f5f9;
+
+    font-size:.85rem;
+    font-weight:700;
+}
+
+.recent-empty p{
+    max-width:220px;
 
     margin:0;
 
+    color:var(--text-muted);
+
+    font-size:.69rem;
+    line-height:1.6;
 }
 
-.transaction-left span{
+.recent-empty button{
+    display:inline-flex;
 
-    color:var(--text-secondary);
+    align-items:center;
 
-    font-size:13px;
+    gap:7px;
 
+    margin-top:17px;
+
+    padding:8px 12px;
+
+    border:1px solid rgba(59,130,246,.18);
+    border-radius:10px;
+
+    background:rgba(59,130,246,.08);
+
+    color:#93c5fd;
+
+    cursor:pointer;
+
+    font:inherit;
+
+    font-size:.67rem;
+    font-weight:700;
+
+    transition:.2s ease;
 }
 
-.transaction-amount{
+.recent-empty button:hover{
+    background:rgba(59,130,246,.14);
 
-    font-size:1.1rem;
-
-    color:var(--success);
-
+    transform:translateY(-1px);
 }
 
-.empty-widget{
 
-    text-align:center;
+/* ==========================================================
+   FOOTER
+========================================================== */
 
-    padding:36px 12px;
+.recent-footer{
+    display:flex;
 
+    align-items:center;
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-top:auto;
+    padding-top:16px;
+
+    border-top:1px solid rgba(148,163,184,.075);
+
+    color:#64748b;
+
+    font-size:.61rem;
+    font-weight:600;
 }
 
-.empty-icon{
+.recent-live{
+    display:flex;
 
-    font-size:2.5rem;
+    align-items:center;
 
-    display:block;
+    gap:6px;
+}
 
-    margin-bottom:12px;
+.recent-live i{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34,197,94,.08);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:760px){
+
+    .recent-transactions{
+        min-height:390px;
+
+        padding:18px;
+
+        border-radius:20px;
+    }
 
 }

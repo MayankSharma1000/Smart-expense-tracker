@@ -1,18 +1,31 @@
-.budget-card {
+.budget-card{
+    --widget-accent:#60a5fa;
+    --widget-accent-soft:rgba(59,130,246,.09);
 }
 
-.budget-icon {
-    background: linear-gradient(
-        135deg,
-        #3b82f6,
-        #2563eb
-    );
+.budget-icon{
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #3b82f6
+        );
 }
 
-.budget-progress-fill {
-    background: linear-gradient(
-        90deg,
-        #22c55e,
-        #3b82f6
-    );
+.budget-progress-fill{
+    background:
+        linear-gradient(
+            90deg,
+            #3b82f6,
+            #60a5fa
+        );
+}
+
+.budget-card .widget-footer{
+    gap:7px;
+}
+
+.budget-card .widget-footer svg{
+    color:#607ca8;
+    font-size:11px;
 }

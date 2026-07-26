@@ -8,10 +8,12 @@ export const useBudget = () => {
   useEffect(() => {
     const fetchBudget = async () => {
       try {
-        const data = await getBudget();
+        const response = await getBudget();
 
-        if (data.budget) {
-          setBudget(data.budget);
+        if (response?.data) {
+          setBudget(response.data);
+        } else {
+          setBudget(null);
         }
       } catch (error) {
         console.error(error);

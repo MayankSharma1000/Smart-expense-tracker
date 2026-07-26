@@ -51,14 +51,14 @@ function SavingsProgress({
           </h3>
 
           <p className="widget-subtitle">
-            Track your savings progress
+            Progress toward your savings target
           </p>
 
           {hasGoal && (
             <span className="widget-pill success">
               {progress >= 100
-                ? "Goal Reached"
-                : "In Progress"}
+                ? "Goal reached"
+                : "In progress"}
             </span>
           )}
         </div>
@@ -70,11 +70,10 @@ function SavingsProgress({
 
       {!hasGoal ? (
         <div className="widget-empty-state">
-          <p>No savings goal created yet.</p>
+          <p>No savings goal yet</p>
 
           <span>
-            Create a savings goal to start tracking
-            your progress.
+            Create a goal to start tracking progress.
           </span>
         </div>
       ) : (
@@ -83,16 +82,12 @@ function SavingsProgress({
             <div className="widget-progress">
               <div
                 className="savings-progress-fill"
-                style={{
-                  width: `${progress}%`,
-                }}
+                style={{ width: `${progress}%` }}
               />
             </div>
 
             <div className="widget-progress-info">
-              <span>
-                {progress}% Complete
-              </span>
+              <span>{progress}% complete</span>
 
               <span>
                 Goal {formatter.format(target)}
@@ -121,12 +116,14 @@ function SavingsProgress({
               </strong>
             </div>
           </div>
-
-          <div className="widget-footer">
-            Target {formatter.format(target)}
-          </div>
         </>
       )}
+
+      <div className="widget-footer">
+        {hasGoal
+          ? `Target ${formatter.format(target)}`
+          : "Ready when you create your first goal"}
+      </div>
     </Card>
   );
 }

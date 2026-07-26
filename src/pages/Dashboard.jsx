@@ -44,86 +44,103 @@ function Dashboard() {
   if (loading) {
     return (
       <AppShell>
-        <DashboardHeader
-          user={user}
-          currency={currency}
-        />
+        <div className="dashboard-page">
+          <DashboardHeader
+            user={user}
+            currency={currency}
+          />
+        </div>
       </AppShell>
     );
   }
 
   return (
     <AppShell>
-      <DashboardHeader
-        user={user}
-        currency={currency}
-        dashboardData={dashboardData}
-      />
+      <div className="dashboard-page">
 
-      <Section
-        title="Quick Actions"
-        subtitle="Create, manage and export your financial data."
-      >
-        <QuickActions
-          onExport={handleExport}
-          exportLoading={loading}
+        <DashboardHeader
+          user={user}
+          currency={currency}
+          dashboardData={dashboardData}
         />
-      </Section>
 
-      <Section
-        title="Financial Control Center"
-        subtitle="Monitor your budget, savings, investments and financial insights."
-      >
-        <div className="financial-control-center">
-          <BudgetProgress
-            monthlyBudget={budget?.monthlyBudget || 0}
-            spent={budgetStats?.spent || 0}
-            remaining={budgetStats?.remaining || 0}
-            percentageUsed={budgetStats?.percentageUsed || 0}
-            currency={currency}
+        <Section
+          title="Quick Actions"
+          subtitle="Everything you need, one click away."
+        >
+          <QuickActions
+            onExport={handleExport}
+            exportLoading={loading}
           />
+        </Section>
 
-          <SavingsProgress
-            currency={currency}
-          />
+        <Section
+          title="Financial Overview"
+          subtitle="Your core financial position at a glance."
+        >
+          <div className="financial-control-center">
 
-          <InvestmentSummary
-            currency={currency}
-            portfolioValue={
-              dashboardData?.currentInvestmentValue || 0
-            }
-            investedAmount={
-              dashboardData?.totalInvested || 0
-            }
-          />
-
-          <AIInsights insights={insights} />
-        </div>
-      </Section>
-
-      <div className="dashboard-workspace">
-        <div className="workspace-left">
-          <Section
-            title="Financial Analytics"
-            subtitle="Spending trends and category insights."
-          >
-            <ChartsSection
-              dashboardData={dashboardData}
+            <BudgetProgress
+              monthlyBudget={budget?.monthlyBudget || 0}
+              spent={budgetStats?.spent || 0}
+              remaining={budgetStats?.remaining || 0}
+              percentageUsed={budgetStats?.percentageUsed || 0}
               currency={currency}
             />
-          </Section>
-        </div>
 
-        <div className="workspace-right">
-          <Section
-            title="Recent Transactions"
-            subtitle="Latest activity across all accounts."
-          >
+            <SavingsProgress
+              currentAmount={
+                dashboardData?.totalSavings || 0
+              }
+              targetAmount={
+                dashboardData?.totalSavingsTarget || 0
+              }
+              currency={currency}
+            />
+
+            <InvestmentSummary
+              currency={currency}
+              portfolioValue={
+                dashboardData?.currentInvestmentValue || 0
+              }
+              investedAmount={
+                dashboardData?.totalInvested || 0
+              }
+            />
+
+          </div>
+        </Section>
+
+        <Section
+          title="Financial Analytics"
+          subtitle="Understand where your money is going."
+        >
+          <ChartsSection
+            dashboardData={dashboardData}
+            currency={currency}
+          />
+        </Section>
+
+        <Section
+          title="Activity & Intelligence"
+          subtitle="Your latest activity and financial observations."
+        >
+          <div className="dashboard-activity-grid">
+
             <RecentTransactions
+              transactions={
+                dashboardData?.recentTransactions || []
+              }
               currency={currency}
             />
-          </Section>
-        </div>
+
+            <AIInsights
+              insights={insights}
+            />
+
+          </div>
+        </Section>
+
       </div>
     </AppShell>
   );

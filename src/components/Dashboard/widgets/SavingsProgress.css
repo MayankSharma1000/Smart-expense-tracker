@@ -1,18 +1,22 @@
-.savings-card {
+.savings-card{
+    --widget-accent:#34d399;
+    --widget-accent-soft:rgba(16,185,129,.075);
 }
 
-.savings-icon {
-    background: linear-gradient(
-        135deg,
-        #10b981,
-        #059669
-    );
+.savings-icon{
+    background:
+        linear-gradient(
+            135deg,
+            #059669,
+            #10b981
+        );
 }
 
-.savings-progress-fill {
-    background: linear-gradient(
-        90deg,
-        #10b981,
-        #34d399
-    );
+.savings-progress-fill{
+    background:
+        linear-gradient(
+            90deg,
+            #10b981,
+            #34d399
+        );
 }

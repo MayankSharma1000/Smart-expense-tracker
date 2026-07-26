@@ -1,84 +1,1163 @@
 /* ==========================================================
-   CHART LAYOUT
+   SMARTMONEY — ANALYTICS WORKSPACE
 ========================================================== */
 
 .charts-grid{
+    display:grid;
+    grid-template-columns:
+        minmax(0,1.7fr)
+        minmax(280px,.72fr);
+    gap:18px;
+    align-items:stretch;
+    width:100%;
+}
+
+
+/* ==========================================================
+   SHARED SURFACE
+========================================================== */
+
+.charts-grid .chart-card{
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+
+    min-width:0;
+    min-height:430px;
+
+    padding:24px;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    background:
+        radial-gradient(
+            circle at 12% 0%,
+            rgba(59,130,246,.085),
+            transparent 34%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(15,22,38,.96),
+            rgba(8,13,25,.98)
+        );
+
+    border:
+        1px solid
+        rgba(148,163,184,.11);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.22),
+        inset 0 1px 0
+        rgba(255,255,255,.025);
+}
+
+.charts-grid .chart-card::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.025),
+            transparent 34%
+        );
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.charts-grid .chart-title{
+    position:relative;
+    z-index:1;
+
+    display:flex;
+
+    align-items:flex-start;
+    justify-content:space-between;
+
+    gap:18px;
+
+    margin-bottom:18px;
+}
+
+.charts-grid .chart-title > div{
+    min-width:0;
+}
+
+.chart-eyebrow{
+    display:block;
+
+    margin-bottom:6px;
+
+    color:#4f8fff;
+
+    font-size:9px;
+    line-height:1;
+
+    font-weight:800;
+
+    letter-spacing:.14em;
+}
+
+.charts-grid .chart-title h3{
+    margin:0;
+
+    color:#f4f7fc;
+
+    font-size:16px;
+    line-height:1.25;
+
+    font-weight:750;
+
+    letter-spacing:-.025em;
+}
+
+.charts-grid .chart-title p{
+    margin:6px 0 0;
+
+    max-width:470px;
+
+    color:#71809c;
+
+    font-size:11px;
+    line-height:1.5;
+}
+
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+.charts-grid .chart-status{
+    flex-shrink:0;
+
+    display:inline-flex;
+    align-items:center;
+
+    gap:6px;
+
+    min-height:25px;
+
+    padding:5px 9px;
+
+    border-radius:999px;
+
+    color:#71809c;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+.chart-status-dot{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#64748b;
+}
+
+.chart-status--live{
+    color:#82b2ff;
+
+    background:
+        rgba(59,130,246,.07);
+
+    border-color:
+        rgba(59,130,246,.15);
+}
+
+.chart-status--live
+.chart-status-dot{
+    background:#60a5fa;
+
+    box-shadow:
+        0 0 7px
+        rgba(96,165,250,.5);
+}
+
+
+/* ==========================================================
+   SPENDING SUMMARY
+========================================================== */
+
+.charts-grid .expenses-summary{
+    position:relative;
+    z-index:1;
 
     display:grid;
 
     grid-template-columns:
-        2fr
-        1fr;
+        minmax(0,1.4fr)
+        minmax(100px,.6fr)
+        minmax(110px,.7fr);
 
-    gap:24px;
+    gap:10px;
 
-    align-items:stretch;
+    margin:0 0 16px !important;
+
+    padding:14px;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.023);
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
 }
 
-/* ---------------------------------------------------------- */
-
-.chart-card{
-
-    display:flex;
-
-    flex-direction:column;
-
-    min-height:355px;
-
-    border-radius:22px;
-
-    height:100%;
+.summary-primary,
+.summary-stat{
+    min-width:0;
 }
 
-/* ---------------------------------------------------------- */
+.summary-stat{
+    padding-left:14px;
 
-.chart-title{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:20px;
+    border-left:
+        1px solid
+        rgba(255,255,255,.055);
 }
 
-/* ---------------------------------------------------------- */
+.charts-grid
+.expenses-summary p{
+    margin:0 0 6px;
 
-.chart-height,
-.donut-wrapper{
+    color:#667590;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.09em;
+}
+
+.charts-grid
+.expenses-summary h2{
+    margin:0;
+
+    color:#f8fafc;
+
+    font-size:23px;
+
+    line-height:1.1;
+
+    font-weight:780;
+
+    letter-spacing:-.045em;
+}
+
+.charts-grid
+.expenses-summary strong{
+    display:block;
+
+    overflow:hidden;
+
+    color:#dbe5f4;
+
+    font-size:13px;
+
+    line-height:1.3;
+
+    font-weight:700;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+
+/* ==========================================================
+   LINE CHART
+========================================================== */
+
+.charts-grid .chart-height{
+    position:relative;
+    z-index:1;
 
     flex:1;
 
-    min-height:280px;
+    width:100%;
+
+    min-height:245px;
 }
 
-/* ---------------------------------------------------------- */
+
+/* ==========================================================
+   ANALYTICS EMPTY STATE
+========================================================== */
+
+.analytics-empty-state{
+    position:relative;
+
+    height:100%;
+    min-height:245px;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:24px;
+
+    overflow:hidden;
+
+    text-align:center;
+
+    border-radius:17px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(59,130,246,.025),
+            rgba(255,255,255,.012)
+        );
+
+    border:
+        1px dashed
+        rgba(96,165,250,.12);
+}
+
+.analytics-empty-visual{
+    position:relative;
+
+    width:130px;
+    height:66px;
+
+    margin-bottom:14px;
+}
+
+.analytics-empty-glow{
+    position:absolute;
+
+    width:90px;
+    height:55px;
+
+    left:50%;
+    top:4px;
+
+    transform:
+        translateX(-50%);
+
+    border-radius:50%;
+
+    background:
+        rgba(59,130,246,.12);
+
+    filter:blur(24px);
+}
+
+.analytics-empty-icon{
+    position:absolute;
+
+    z-index:2;
+
+    top:0;
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    color:#60a5fa;
+
+    background:
+        rgba(59,130,246,.1);
+
+    border:
+        1px solid
+        rgba(96,165,250,.15);
+
+    font-size:14px;
+}
+
+.analytics-preview-chart{
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:27px;
+
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:center;
+
+    gap:7px;
+
+    opacity:.42;
+}
+
+.analytics-preview-chart span{
+    width:19px;
+
+    border-radius:
+        4px 4px 1px 1px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #3b82f6,
+            rgba(59,130,246,.15)
+        );
+}
+
+.analytics-preview-chart
+span:nth-child(1){
+    height:9px;
+}
+
+.analytics-preview-chart
+span:nth-child(2){
+    height:17px;
+}
+
+.analytics-preview-chart
+span:nth-child(3){
+    height:12px;
+}
+
+.analytics-preview-chart
+span:nth-child(4){
+    height:24px;
+}
+
+.analytics-empty-copy h4{
+    margin:0;
+
+    color:#e8eef8;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.analytics-empty-copy p{
+    max-width:350px;
+
+    margin:7px auto 0;
+
+    color:#71809c;
+
+    font-size:10.5px;
+    line-height:1.55;
+}
+
+.analytics-empty-hint{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:14px;
+
+    color:#567094;
+
+    font-size:9px;
+}
+
+.analytics-empty-hint svg{
+    color:#4f8fff;
+}
+
+
+/* ==========================================================
+   TOP SPENDING
+========================================================== */
+
+.top-spending-card{
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(139,92,246,.065),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(15,22,38,.96),
+            rgba(8,13,25,.98)
+        ) !important;
+}
+
+.donut-area{
+    position:relative;
+
+    width:100%;
+    height:195px;
+
+    flex-shrink:0;
+}
+
+.donut-center{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+
+    pointer-events:none;
+}
+
+.donut-center span{
+    color:#65748e;
+
+    font-size:9px;
+
+    font-weight:650;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+}
+
+.donut-center strong{
+    max-width:105px;
+
+    margin-top:4px;
+
+    overflow:hidden;
+
+    color:#f8fafc;
+
+    font-size:16px;
+
+    font-weight:780;
+
+    letter-spacing:-.035em;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+}
+
+
+/* ==========================================================
+   TOP CATEGORY
+========================================================== */
+
+.top-category-summary{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        auto;
+
+    align-items:center;
+
+    gap:3px 10px;
+
+    margin:2px 0 10px;
+
+    padding:10px 11px;
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.022);
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+}
+
+.top-category-summary span{
+    color:#687791;
+
+    font-size:9px;
+}
+
+.top-category-summary strong{
+    color:#e7edf7;
+
+    font-size:11px;
+
+    text-align:right;
+}
+
+.top-category-summary small{
+    grid-column:1 / -1;
+
+    color:#566781;
+
+    font-size:8.5px;
+}
+
+
+/* ==========================================================
+   CATEGORY LEGEND
+========================================================== */
+
+.charts-grid .category-legend{
+    display:flex;
+    flex-direction:column;
+
+    gap:2px;
+
+    margin-top:auto;
+}
+
+.charts-grid .legend-item{
+    display:grid;
+
+    grid-template-columns:
+        7px
+        minmax(0,1fr)
+        auto
+        36px;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-height:29px;
+
+    padding:5px 6px;
+
+    border-radius:9px;
+
+    transition:
+        background .2s ease;
+}
+
+.charts-grid .legend-item:hover{
+    background:
+        rgba(255,255,255,.03);
+}
+
+.charts-grid .legend-color{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+}
+
+.charts-grid .legend-item span{
+    overflow:hidden;
+
+    color:#8b99b0;
+
+    font-size:9.5px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.charts-grid .legend-item strong{
+    color:#dce4f1;
+
+    font-size:9.5px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+.charts-grid .legend-item small{
+    color:#60708a;
+
+    font-size:8.5px;
+
+    text-align:right;
+}
+
+
+/* ==========================================================
+   CATEGORY EMPTY STATE
+========================================================== */
+
+.category-empty-state{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:310px;
+
+    text-align:center;
+}
+
+.category-empty-visual{
+    position:relative;
+
+    display:grid;
+    place-items:center;
+
+    margin-bottom:16px;
+}
+
+.empty-donut{
+    width:104px;
+    height:104px;
+
+    padding:11px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            rgba(59,130,246,.32)
+            0deg 76deg,
+
+            rgba(34,197,94,.18)
+            76deg 148deg,
+
+            rgba(139,92,246,.2)
+            148deg 218deg,
+
+            rgba(255,255,255,.045)
+            218deg 360deg
+        );
+
+    box-shadow:
+        0 0 45px
+        rgba(59,130,246,.06);
+}
+
+.empty-donut::before{
+    content:"";
+
+    position:absolute;
+
+    width:78px;
+    height:78px;
+
+    border-radius:50%;
+
+    background:#0b1120;
+
+    border:
+        1px solid
+        rgba(255,255,255,.04);
+}
+
+.empty-donut-inner{
+    position:relative;
+    z-index:2;
+
+    width:34px;
+    height:34px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:11px;
+
+    color:#7386a5;
+
+    background:
+        rgba(255,255,255,.035);
+
+    font-size:13px;
+}
+
+.category-empty-copy h4{
+    margin:0;
+
+    color:#e8eef8;
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.category-empty-copy p{
+    max-width:230px;
+
+    margin:7px auto 0;
+
+    color:#71809c;
+
+    font-size:10px;
+
+    line-height:1.55;
+}
+
+.category-preview{
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-top:15px;
+}
+
+.category-preview > div{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:5px 7px;
+
+    border-radius:999px;
+
+    color:#71809c;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid
+        rgba(255,255,255,.045);
+
+    font-size:8.5px;
+}
+
+.preview-dot{
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+}
+
+.preview-dot.blue{
+    background:#3b82f6;
+}
+
+.preview-dot.green{
+    background:#22c55e;
+}
+
+.preview-dot.purple{
+    background:#8b5cf6;
+}
+
+.category-empty-footer{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    margin-top:18px;
+
+    color:#53627b;
+
+    font-size:8.5px;
+}
+
+.category-empty-footer svg{
+    color:#667a9b;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
 
 .goal-grid{
-
     display:grid;
 
     grid-template-columns:
         repeat(3,minmax(0,1fr));
 
-    gap:24px;
+    gap:20px;
 }
 
-/* ---------------------------------------------------------- */
+@media(max-width:1320px){
+
+    .charts-grid{
+        grid-template-columns:
+            minmax(0,1.5fr)
+            minmax(260px,.75fr);
+    }
+
+}
 
 @media(max-width:1180px){
 
-.charts-grid{
+    .charts-grid{
+        grid-template-columns:1fr;
+    }
 
-grid-template-columns:1fr;
+    .charts-grid .chart-card{
+        min-height:400px;
+    }
+
+    .top-spending-card{
+        min-height:430px !important;
+    }
 
 }
 
-.goal-grid{
+@media(max-width:640px){
 
-grid-template-columns:1fr;
+    .charts-grid .chart-card{
+        min-height:390px;
+
+        padding:18px;
+
+        border-radius:20px;
+    }
+
+    .charts-grid .chart-title{
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+    .charts-grid .expenses-summary{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .summary-primary{
+        grid-column:1 / -1;
+    }
+
+    .summary-stat:first-of-type{
+        padding-left:0;
+        border-left:0;
+    }
+
+    .charts-grid .chart-height{
+        min-height:220px;
+    }
+
+    .goal-grid{
+        grid-template-columns:1fr;
+    }
 
 }
 
+
+/* SMARTMONEY TOP SPENDING LAYOUT FIX */
+
+/*
+ * The Top Spending card is substantially narrower than the
+ * Monthly Spending card. Keep every child constrained to the
+ * card's content box so the total can never escape to the left.
+ */
+
+.top-spending-card{
+    min-width:0;
+}
+
+.top-spending-card .chart-title{
+    flex-shrink:0;
+}
+
+.top-spending-card .donut-area{
+    position:relative;
+
+    width:100%;
+    min-width:0;
+    height:185px;
+
+    margin:0;
+
+    overflow:hidden;
+}
+
+.top-spending-card .recharts-responsive-container{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+}
+
+.top-spending-card .donut-center{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:120px;
+    max-width:42%;
+
+    transform:translate(-50%,-50%);
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    overflow:hidden;
+
+    pointer-events:none;
+}
+
+.top-spending-card .donut-center span{
+    width:100%;
+
+    overflow:hidden;
+
+    text-align:center;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.top-spending-card .donut-center strong{
+    display:block;
+
+    width:100%;
+    max-width:100%;
+
+    margin-top:4px;
+
+    overflow:hidden;
+
+    text-align:center;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.top-spending-card .top-category-summary{
+    width:100%;
+    min-width:0;
+
+    box-sizing:border-box;
+}
+
+.top-spending-card .top-category-summary strong{
+    min-width:0;
+    max-width:150px;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.top-spending-card .category-legend{
+    width:100%;
+    min-width:0;
+}
+
+.top-spending-card .legend-item{
+    width:100%;
+    min-width:0;
+
+    box-sizing:border-box;
+}
+
+.top-spending-card .legend-item span{
+    min-width:0;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.top-spending-card .legend-item strong{
+    min-width:0;
+
+    overflow:hidden;
+
+    text-align:right;
+
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+@media(max-width:1320px){
+
+    .top-spending-card .donut-area{
+        height:180px;
+    }
+
+    .top-spending-card .donut-center{
+        width:105px;
+    }
+
+    .top-spending-card .donut-center strong{
+        font-size:14px;
+    }
+}
+
+@media(max-width:1180px){
+
+    .top-spending-card .donut-area{
+        height:205px;
+    }
+
+    .top-spending-card .donut-center{
+        width:125px;
+    }
+
+    .top-spending-card .donut-center strong{
+        font-size:16px;
+    }
+}
+
+@media(max-width:640px){
+
+    .top-spending-card .donut-area{
+        height:190px;
+    }
+
+    .top-spending-card .donut-center{
+        width:105px;
+    }
+
+    .top-spending-card .donut-center strong{
+        font-size:14px;
+    }
+
+    .top-spending-card .legend-item{
+        grid-template-columns:
+            7px
+            minmax(0,1fr)
+            minmax(70px,auto)
+            36px;
+
+        gap:6px;
+    }
 }

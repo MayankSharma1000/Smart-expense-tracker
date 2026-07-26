@@ -10,8 +10,23 @@ function SpendingOverview({
   const avgWeekly =
     Math.round(totalSpent / 4);
 
-  const categories =
-    dashboardData?.categoryChart || [];
+  const categories = (
+    dashboardData?.categoryChart || []
+  )
+    .map((item) => ({
+      name:
+        item?.name ||
+        item?.category ||
+        "Other",
+      value:
+        Number(
+          item?.value ??
+          item?.amount
+        ) || 0,
+    }))
+    .filter(
+      (item) => item.value > 0
+    );
 
   const formatter =
     new Intl.NumberFormat("en-IN", {
@@ -97,24 +112,7 @@ function SpendingOverview({
         </div>
       </div>
 
-      <div className="category-chips">
-        {categories.map((cat, index) => (
-          <div
-            key={cat.name || index}
-            className="category-chip"
-          >
-            <span>
-              {cat.name}
-            </span>
 
-            <strong>
-              {formatter.format(
-                Number(cat.value) || 0
-              )}
-            </strong>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

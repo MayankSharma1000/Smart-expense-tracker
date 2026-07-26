@@ -3093,3 +3093,843 @@ h2 {
 /* =========================================================
    END SMARTMONEY PREMIUM VISUAL LAYER
 ========================================================= */
+
+
+/* =========================================================
+   MONTHLY SPENDING — CHART CONTAINMENT FIX
+   Keeps the reused MonthlyOverview fully visible inside
+   SpendingOverview and removes vertical chart clipping.
+========================================================= */
+
+.analytics-primary-grid > .spending-card {
+  min-height: 650px !important;
+  overflow: visible !important;
+}
+
+.analytics-primary-grid .spending-card .chart-container {
+  width: auto !important;
+  min-width: 0 !important;
+
+  margin: 0 16px !important;
+
+  overflow: visible !important;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics {
+  width: 100% !important;
+
+  min-width: 0 !important;
+  min-height: 350px !important;
+  height: auto !important;
+
+  box-sizing: border-box;
+
+  padding: 18px 22px 20px !important;
+
+  overflow: hidden !important;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-title {
+  flex-shrink: 0;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.expenses-summary {
+  flex-shrink: 0;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-height {
+  position: relative;
+
+  flex: none !important;
+
+  width: 100% !important;
+  height: 190px !important;
+  min-height: 190px !important;
+
+  margin-top: 8px;
+
+  overflow: visible !important;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-height canvas {
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: 100% !important;
+  max-height: none !important;
+}
+
+.analytics-primary-grid .spending-card .quick-stats {
+  margin-top: 18px !important;
+  margin-bottom: 16px !important;
+}
+
+
+/* Tablet — keep full graph visible */
+
+@media (max-width: 900px) {
+
+  .analytics-primary-grid > .spending-card {
+    min-height: auto !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height {
+    height: 220px !important;
+    min-height: 220px !important;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 560px) {
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-container {
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics {
+    padding: 16px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height {
+    height: 210px !important;
+    min-height: 210px !important;
+  }
+}
+
+
+/* =========================================================
+   ANALYTICS SPENDING — FINAL LAYOUT CORRECTION
+
+   Fixes:
+   - Spending card no longer becomes absurdly tall
+   - Financial Health + Spending row stays balanced
+   - Quick stats no longer overlap the graph
+   - Chart gets dedicated vertical space
+   - Full x/y axes remain visible
+   - Removes giant dead area below the chart
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   PRIMARY ROW
+--------------------------------------------------------- */
+
+.analytics-primary-grid {
+  align-items: stretch !important;
+}
+
+.analytics-primary-grid > .financial-health-card,
+.analytics-primary-grid > .spending-card {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+
+/* ---------------------------------------------------------
+   SPENDING OUTER CARD
+--------------------------------------------------------- */
+
+.analytics-primary-grid > .spending-card {
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+
+  min-height: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   KPI
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.spending-kpi {
+  flex: 0 0 auto;
+
+  padding:
+    13px 16px
+    9px !important;
+}
+
+
+/* ---------------------------------------------------------
+   MONTHLY OVERVIEW CONTAINER
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.chart-container {
+  flex: 0 0 auto !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  margin:
+    0 16px !important;
+
+  overflow: hidden !important;
+}
+
+
+/* ---------------------------------------------------------
+   REUSED MONTHLY OVERVIEW CARD
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics {
+  display: flex !important;
+  flex-direction: column !important;
+
+  width: 100% !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  padding:
+    18px 22px
+    16px !important;
+
+  box-sizing: border-box;
+
+  overflow: hidden !important;
+}
+
+
+/* Header must never consume chart space */
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-title {
+  flex: 0 0 auto !important;
+
+  margin-bottom: 14px !important;
+}
+
+
+/* Summary must remain above chart */
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.expenses-summary {
+  flex: 0 0 auto !important;
+
+  margin-bottom: 10px !important;
+}
+
+
+/* ---------------------------------------------------------
+   ACTUAL CHART AREA
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-height {
+  position: relative !important;
+
+  flex: 0 0 190px !important;
+
+  width: 100% !important;
+
+  height: 190px !important;
+  min-height: 190px !important;
+  max-height: 190px !important;
+
+  margin: 0 !important;
+
+  overflow: hidden !important;
+}
+
+.analytics-primary-grid
+.spending-card
+.chart-card--analytics
+.chart-height canvas {
+  display: block !important;
+
+  width: 100% !important;
+  height: 190px !important;
+
+  max-width: 100% !important;
+  max-height: 190px !important;
+}
+
+
+/* ---------------------------------------------------------
+   QUICK STATS
+
+   Critical fix:
+   these must remain OUTSIDE the graph instead of visually
+   floating over Week 1 / Week 2 / Week 3.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.quick-stats {
+  position: relative !important;
+  z-index: 2 !important;
+
+  flex: 0 0 auto !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr)) !important;
+
+  gap: 8px !important;
+
+  width: auto !important;
+
+  margin:
+    14px 16px
+    16px !important;
+
+  padding: 0 !important;
+
+  transform: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   REMOVE LEGACY CATEGORY CHIP SPACE
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.spending-card
+.category-chips {
+  display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   FINANCIAL HEALTH
+
+   Let it match the natural height of the spending card
+   instead of forcing the entire row to ~650px.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+> .financial-health-card {
+  min-height: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   DESKTOP — KEEP BOTH CARDS VISUALLY BALANCED
+--------------------------------------------------------- */
+
+@media (min-width: 901px) {
+
+  .analytics-primary-grid {
+    align-items: stretch !important;
+  }
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    height: 100% !important;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   TABLET
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    height: auto !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height {
+    flex-basis: 220px !important;
+
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height canvas {
+    height: 220px !important;
+    max-height: 220px !important;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 560px) {
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-container {
+    margin:
+      0 12px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics {
+    padding:
+      16px 14px
+      14px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .quick-stats {
+    grid-template-columns:
+      1fr !important;
+
+    margin:
+      12px 12px
+      14px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height {
+    flex-basis: 210px !important;
+
+    height: 210px !important;
+    min-height: 210px !important;
+    max-height: 210px !important;
+  }
+
+  .analytics-primary-grid
+  .spending-card
+  .chart-card--analytics
+  .chart-height canvas {
+    height: 210px !important;
+    max-height: 210px !important;
+  }
+}
+
+
+/* =========================================================
+   FINANCIAL HEALTH — EMPTY SPACE FIX
+
+   Financial Health previously stretched to the height of the
+   Monthly Spending card because the primary grid used stretch.
+   Let each card use its own natural content height instead.
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   PRIMARY ROW — NATURAL CARD HEIGHTS
+--------------------------------------------------------- */
+
+.analytics-primary-grid {
+  align-items: start !important;
+}
+
+
+/* ---------------------------------------------------------
+   FINANCIAL HEALTH CARD
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+> .financial-health-card {
+  align-self: start !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+
+  overflow: hidden !important;
+}
+
+
+/* Do not allow internal body to artificially fill the card */
+
+.analytics-primary-grid
+.financial-health-card
+.financial-body {
+  height: auto !important;
+  min-height: 0 !important;
+
+  flex: 0 0 auto !important;
+
+  align-items: center !important;
+
+  padding-bottom: 16px !important;
+}
+
+
+/* ---------------------------------------------------------
+   SPENDING CARD
+
+   Keep its natural height independently.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+> .spending-card {
+  align-self: start !important;
+
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   OVERRIDE PREVIOUS DESKTOP STRETCH RULE
+--------------------------------------------------------- */
+
+@media (min-width: 901px) {
+
+  .analytics-primary-grid {
+    align-items: start !important;
+  }
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    height: auto !important;
+    min-height: 0 !important;
+
+    align-self: start !important;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   TABLET / MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* =========================================================
+   FINANCIAL HEALTH — BALANCED FULL HEIGHT LAYOUT
+
+   Keep Financial Health equal in height to Monthly Spending,
+   but DISTRIBUTE its content through the available space.
+
+   Layout:
+   header
+   ↓
+   score + health metrics
+   ↓
+   insight panel expands naturally
+   ↓
+   no giant dead zone
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   RESTORE EQUAL HEIGHT PRIMARY ROW
+--------------------------------------------------------- */
+
+@media (min-width: 901px) {
+
+  .analytics-primary-grid {
+    align-items: stretch !important;
+  }
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    align-self: stretch !important;
+
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   FINANCIAL HEALTH CARD STRUCTURE
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+> .financial-health-card {
+  display: flex !important;
+  flex-direction: column !important;
+
+  overflow: hidden !important;
+}
+
+
+/* Header stays compact at top */
+
+.analytics-primary-grid
+.financial-health-card
+.card-header {
+  flex: 0 0 auto !important;
+}
+
+
+/* ---------------------------------------------------------
+   HEALTH BODY
+
+   Use the available card height rather than stacking
+   everything into the first ~200px.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.financial-health-card
+.financial-body {
+  flex: 1 1 auto !important;
+
+  min-height: 0 !important;
+  height: auto !important;
+
+  display: grid !important;
+
+  grid-template-columns:
+    110px
+    minmax(0, 1fr) !important;
+
+  grid-template-rows:
+    auto
+    minmax(120px, 1fr) !important;
+
+  column-gap: 16px !important;
+  row-gap: 18px !important;
+
+  align-items: start !important;
+
+  padding:
+    18px 16px
+    18px !important;
+}
+
+
+/* ---------------------------------------------------------
+   SCORE RING
+
+   Keep the score near the TOP instead of vertically
+   floating in the middle of the entire card.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.financial-health-card
+.score-container,
+.analytics-primary-grid
+.financial-health-card
+.score-section,
+.analytics-primary-grid
+.financial-health-card
+.health-score {
+  align-self: start !important;
+}
+
+
+/* ---------------------------------------------------------
+   METRICS
+
+   Give Savings / Investment / Budget / Profitability
+   slightly more breathing room vertically.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.financial-health-card
+.health-metrics,
+.analytics-primary-grid
+.financial-health-card
+.metrics-container,
+.analytics-primary-grid
+.financial-health-card
+.financial-metrics {
+  align-self: start !important;
+
+  width: 100% !important;
+}
+
+
+.analytics-primary-grid
+.financial-health-card
+.metric-row {
+  margin-bottom: 15px !important;
+}
+
+.analytics-primary-grid
+.financial-health-card
+.metric-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   FINANCIAL INSIGHT
+
+   Move it below the score/metrics area and allow it to use
+   the lower portion of the card instead of leaving it blank.
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.financial-health-card
+.health-ai {
+  grid-column: 1 / -1 !important;
+  grid-row: 2 !important;
+
+  align-self: stretch !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+
+  padding:
+    18px 20px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  justify-content: center !important;
+
+  border-radius: 12px !important;
+}
+
+
+/* Improve insight readability now that it has room */
+
+.analytics-primary-grid
+.financial-health-card
+.health-ai p {
+  max-width: 100% !important;
+
+  margin-top: 6px !important;
+
+  font-size: 0.62rem !important;
+  line-height: 1.6 !important;
+}
+
+
+/* ---------------------------------------------------------
+   SCORE POSITIONING
+--------------------------------------------------------- */
+
+.analytics-primary-grid
+.financial-health-card
+.score-ring {
+  margin-top: 4px !important;
+}
+
+
+/* ---------------------------------------------------------
+   TABLET / MOBILE
+
+   Equal-height pairing is desktop-only.
+--------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .analytics-primary-grid {
+    align-items: start !important;
+  }
+
+  .analytics-primary-grid
+  > .financial-health-card,
+
+  .analytics-primary-grid
+  > .spending-card {
+    align-self: auto !important;
+
+    height: auto !important;
+  }
+
+  .analytics-primary-grid
+  .financial-health-card
+  .financial-body {
+    grid-template-columns:
+      110px
+      minmax(0, 1fr) !important;
+
+    grid-template-rows:
+      auto
+      auto !important;
+  }
+
+  .analytics-primary-grid
+  .financial-health-card
+  .health-ai {
+    min-height: 100px !important;
+  }
+}
+
+
+@media (max-width: 560px) {
+
+  .analytics-primary-grid
+  .financial-health-card
+  .financial-body {
+    grid-template-columns:
+      1fr !important;
+
+    grid-template-rows:
+      auto
+      auto
+      auto !important;
+  }
+
+  .analytics-primary-grid
+  .financial-health-card
+  .health-ai {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+}

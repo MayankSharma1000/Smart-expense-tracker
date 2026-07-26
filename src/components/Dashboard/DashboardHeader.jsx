@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import "./DashboardHeader.css";
 
 import {
-  FaChartLine,
-  FaWallet,
   FaArrowTrendDown,
-  FaPiggyBank,
-  FaCoins,
+  FaChartLine,
   FaChartPie,
+  FaCoins,
+  FaPiggyBank,
+  FaWallet,
 } from "react-icons/fa6";
 
 function DashboardHeader({
@@ -20,8 +20,11 @@ function DashboardHeader({
 
   let greeting = "Good Evening";
 
-  if (hour < 12) greeting = "Good Morning";
-  else if (hour < 17) greeting = "Good Afternoon";
+  if (hour < 12) {
+    greeting = "Good Morning";
+  } else if (hour < 17) {
+    greeting = "Good Afternoon";
+  }
 
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",
@@ -29,8 +32,8 @@ function DashboardHeader({
     maximumFractionDigits: 0,
   });
 
-  const name =
-    user?.name?.trim()?.split(" ")[0] ||
+  const firstName =
+    user?.name?.trim()?.split(/\s+/)[0] ||
     user?.email?.split("@")[0] ||
     "there";
 
@@ -47,9 +50,36 @@ function DashboardHeader({
     totalSavings + investmentValue;
 
   const statusMessage =
-    totalSavings >= totalExpenses
-      ? "Your financial system is healthy."
-      : "Keep an eye on this month's spending.";
+    totalSavings + investmentValue > 0
+      ? "Your financial overview is ready."
+      : "Start building your financial picture.";
+
+  const metrics = [
+    {
+      label: "Expenses",
+      value: totalExpenses,
+      icon: FaArrowTrendDown,
+      className: "expense",
+    },
+    {
+      label: "Savings",
+      value: totalSavings,
+      icon: FaPiggyBank,
+      className: "savings",
+    },
+    {
+      label: "Investments",
+      value: investmentValue,
+      icon: FaCoins,
+      className: "investment",
+    },
+    {
+      label: "Net Worth",
+      value: netWorth,
+      icon: FaChartPie,
+      className: "worth",
+    },
+  ];
 
   return (
     <motion.section
@@ -59,105 +89,90 @@ function DashboardHeader({
       animate="visible"
     >
       <div className="hero-content">
-
         <div className="hero-left">
+          <span className="hero-eyebrow">
+            FINANCIAL OVERVIEW
+          </span>
 
           <h1>
             {greeting},{" "}
-            <span>{name}</span>
+            <span>{firstName}</span>
           </h1>
 
-          <p>
-            {statusMessage}
-          </p>
-
+          <p>{statusMessage}</p>
         </div>
 
         <motion.div
           className="wallet-card"
-          whileHover={{ y: -4 }}
-          transition={{ duration: 0.2 }}
+          whileHover={{ y: -3 }}
+          transition={{
+            duration: 0.2,
+            ease: "easeOut",
+          }}
         >
-          <div className="wallet-top">
+          <div className="wallet-card-header">
+            <div className="wallet-top">
+              <div className="wallet-icon">
+                <FaWallet />
+              </div>
 
-            <div className="wallet-icon">
-              <FaWallet />
+              <div className="wallet-heading">
+                <span>Net Worth</span>
+                <small>Current position</small>
+              </div>
             </div>
 
-            <span>
-              Net Worth
-            </span>
-
+            <div className="wallet-status">
+              <span />
+              Live
+            </div>
           </div>
 
-          <h2>
+          <div className="wallet-value">
             {formatter.format(netWorth)}
-          </h2>
-
-          <p>
-            Savings + Investments
-          </p>
-
-          <div className="wallet-growth">
-
-            <FaChartLine />
-
-            <span>
-              Updated automatically
-            </span>
-
           </div>
 
-        </motion.div>
+          <div className="wallet-footer">
+            <span>
+              Savings + Investments
+            </span>
 
+            <div className="wallet-growth">
+              <FaChartLine />
+              <span>Auto updated</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       <div className="hero-kpis">
+        {metrics.map(
+          ({
+            label,
+            value,
+            icon: Icon,
+            className,
+          }) => (
+            <div
+              className={`hero-kpi ${className}`}
+              key={label}
+            >
+              <div className="kpi-top">
+                <div className="kpi-label">
+                  <span className="kpi-icon">
+                    <Icon />
+                  </span>
 
-        <div className="hero-kpi expense">
-          <div className="kpi-label">
-            <FaArrowTrendDown />
-            <span>Expenses</span>
-          </div>
+                  <span>{label}</span>
+                </div>
+              </div>
 
-          <h3>
-            {formatter.format(totalExpenses)}
-          </h3>
-        </div>
-
-        <div className="hero-kpi savings">
-          <div className="kpi-label">
-            <FaPiggyBank />
-            <span>Savings</span>
-          </div>
-
-          <h3>
-            {formatter.format(totalSavings)}
-          </h3>
-        </div>
-
-        <div className="hero-kpi investment">
-          <div className="kpi-label">
-            <FaCoins />
-            <span>Investments</span>
-          </div>
-
-          <h3>
-            {formatter.format(investmentValue)}
-          </h3>
-        </div>
-
-        <div className="hero-kpi worth">
-          <div className="kpi-label">
-            <FaChartPie />
-            <span>Net Worth</span>
-          </div>
-
-          <h3>
-            {formatter.format(netWorth)}
-          </h3>
-        </div>
-
+              <h3>
+                {formatter.format(value)}
+              </h3>
+            </div>
+          )
+        )}
       </div>
     </motion.section>
   );

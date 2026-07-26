@@ -1,29 +1,23 @@
+
+/* ==========================================================
+   SMARTMONEY — QUICK ACTIONS
+========================================================== */
+
 .quick-actions-bar{
-
     display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:14px;
+    width:100%;
+}
 
-    grid-template-columns:repeat(4,1fr);
-
-    gap:24px;
-
-    }
-
-    @media(max-width:1000px){
-
+@media(max-width:1050px){
     .quick-actions-bar{
-
-    grid-template-columns:repeat(2,1fr);
-
+        grid-template-columns:repeat(2,minmax(0,1fr));
     }
+}
 
-    }
-
-    @media(max-width:640px){
-
+@media(max-width:620px){
     .quick-actions-bar{
-
-    grid-template-columns:1fr;
-
+        grid-template-columns:1fr;
     }
-
-    }
+}

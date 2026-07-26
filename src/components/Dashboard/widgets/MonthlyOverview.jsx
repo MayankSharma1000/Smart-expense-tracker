@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +12,11 @@ import {
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
+
+import {
+  FaArrowTrendUp,
+  FaChartLine
+} from "react-icons/fa6";
 
 ChartJS.register(
   CategoryScale,
@@ -26,22 +32,39 @@ function MonthlyOverview({
   monthlyChart = [],
   variant = "default",
 }) {
-  const totalExpenses = monthlyChart.reduce(
-    (sum, item) => sum + Number(item.expenses || 0),
+  const normalizedChart = monthlyChart.map(
+    (item) => ({
+      ...item,
+      expenses: Number(item.expenses) || 0,
+    })
+  );
+
+  const totalExpenses = normalizedChart.reduce(
+    (sum, item) => sum + item.expenses,
     0
   );
 
-  const highestWeek =
-    monthlyChart.length > 0
-      ? monthlyChart.reduce((prev, current) =>
-          prev.expenses > current.expenses
-            ? prev
-            : current
+  const hasSpending = totalExpenses > 0;
+
+  const highestWeek = hasSpending
+    ? normalizedChart.reduce(
+        (highest, current) =>
+          current.expenses > highest.expenses
+            ? current
+            : highest
+      )
+    : null;
+
+  const averageSpend =
+    hasSpending && normalizedChart.length
+      ? Math.round(
+          totalExpenses /
+            normalizedChart.length
         )
-      : null;
+      : 0;
 
   const data = {
-    labels: monthlyChart.map(
+    labels: normalizedChart.map(
       (item) => item.month
     ),
 
@@ -49,9 +72,8 @@ function MonthlyOverview({
       {
         label: "Weekly Spending",
 
-        data: monthlyChart.map(
-          (item) =>
-            Number(item.expenses) || 0
+        data: normalizedChart.map(
+          (item) => item.expenses
         ),
 
         tension: 0.42,
@@ -61,13 +83,12 @@ function MonthlyOverview({
 
         fill: true,
 
-        borderWidth: 3,
+        borderWidth: 2.5,
 
-        borderColor: "#2f7cff",
+        borderColor: "#3b82f6",
 
         backgroundColor: (context) => {
-          const chart =
-            context.chart;
+          const chart = context.chart;
 
           const {
             ctx,
@@ -75,7 +96,7 @@ function MonthlyOverview({
           } = chart;
 
           if (!chartArea) {
-            return "rgba(47,124,255,0.18)";
+            return "rgba(59,130,246,.16)";
           }
 
           const gradient =
@@ -88,31 +109,31 @@ function MonthlyOverview({
 
           gradient.addColorStop(
             0,
-            "rgba(47,124,255,0.58)"
+            "rgba(59,130,246,.34)"
           );
 
           gradient.addColorStop(
-            0.45,
-            "rgba(37,99,235,0.22)"
+            0.5,
+            "rgba(37,99,235,.11)"
           );
 
           gradient.addColorStop(
             1,
-            "rgba(0,0,0,0)"
+            "rgba(37,99,235,0)"
           );
 
           return gradient;
         },
 
-        pointRadius: 4,
+        pointRadius: 3,
 
-        pointHoverRadius: 7,
+        pointHoverRadius: 6,
 
         pointBackgroundColor:
-          "#ffffff",
+          "#dbeafe",
 
         pointBorderColor:
-          "#2f7cff",
+          "#3b82f6",
 
         pointBorderWidth: 2,
 
@@ -138,7 +159,7 @@ function MonthlyOverview({
     },
 
     animation: {
-      duration: 750,
+      duration: 700,
       easing: "easeOutQuart",
     },
 
@@ -151,10 +172,10 @@ function MonthlyOverview({
         enabled: true,
 
         backgroundColor:
-          "rgba(3, 7, 18, 0.96)",
+          "rgba(3,7,18,.97)",
 
         borderColor:
-          "rgba(59, 130, 246, 0.55)",
+          "rgba(59,130,246,.4)",
 
         borderWidth: 1,
 
@@ -170,9 +191,7 @@ function MonthlyOverview({
           label: (context) =>
             `₹${Number(
               context.raw || 0
-            ).toLocaleString(
-              "en-IN"
-            )}`,
+            ).toLocaleString("en-IN")}`,
         },
       },
     },
@@ -206,7 +225,7 @@ function MonthlyOverview({
 
         grid: {
           color:
-            "rgba(148,163,184,0.075)",
+            "rgba(148,163,184,.07)",
         },
 
         ticks: {
@@ -220,9 +239,7 @@ function MonthlyOverview({
           callback: (value) =>
             `₹${Number(
               value
-            ).toLocaleString(
-              "en-IN"
-            )}`,
+            ).toLocaleString("en-IN")}`,
         },
       },
     },
@@ -230,7 +247,7 @@ function MonthlyOverview({
 
   return (
     <div
-      className={`chart-card ${
+      className={`chart-card spending-trend-card ${
         variant === "analytics"
           ? "chart-card--analytics"
           : ""
@@ -238,30 +255,38 @@ function MonthlyOverview({
     >
       <div className="chart-title">
         <div>
+          <span className="chart-eyebrow">
+            SPENDING ANALYSIS
+          </span>
+
           <h3>
             Monthly Spending Trend
           </h3>
 
           <p>
-            Track how your expenses changed throughout the month.
+            Track how your expenses move
+            throughout the month.
           </p>
         </div>
 
-        <span>
-          {monthlyChart.length
-            ? "Updated Today"
-            : "No Data"}
+        <span
+          className={`chart-status ${
+            hasSpending
+              ? "chart-status--live"
+              : ""
+          }`}
+        >
+          <span className="chart-status-dot" />
+
+          {hasSpending
+            ? "Live data"
+            : "Waiting for data"}
         </span>
       </div>
 
-      <div
-        className="expenses-summary"
-        style={{
-          marginBottom: "18px"
-        }}
-      >
-        <div>
-          <p>Total Tracked</p>
+      <div className="expenses-summary">
+        <div className="summary-primary">
+          <p>Total tracked</p>
 
           <h2>
             ₹
@@ -271,41 +296,72 @@ function MonthlyOverview({
           </h2>
         </div>
 
-        <div
-          style={{
-            textAlign: "right"
-          }}
-        >
-          <p>Highest Week</p>
+        <div className="summary-stat">
+          <p>Highest week</p>
 
           <strong>
             {highestWeek
               ? highestWeek.month
-              : "--"}
+              : "—"}
+          </strong>
+        </div>
+
+        <div className="summary-stat">
+          <p>Weekly average</p>
+
+          <strong>
+            {hasSpending
+              ? `₹${averageSpend.toLocaleString(
+                  "en-IN"
+                )}`
+              : "—"}
           </strong>
         </div>
       </div>
 
       <div className="chart-height">
-        {monthlyChart.length ? (
+        {hasSpending ? (
           <Line
             data={data}
             options={options}
           />
         ) : (
-          <div
-            className="empty-chart-state"
-          >
-            <h4>
-              No spending trend
-              available
-            </h4>
+          <div className="analytics-empty-state">
+            <div className="analytics-empty-visual">
+              <div className="analytics-empty-glow" />
 
-            <p>
-              Add expenses with
-              different dates to
-              generate insights.
-            </p>
+              <div className="analytics-empty-icon">
+                <FaChartLine />
+              </div>
+
+              <div className="analytics-preview-chart">
+                <span />
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+
+            <div className="analytics-empty-copy">
+              <h4>
+                Your spending story starts here
+              </h4>
+
+              <p>
+                Record your first expense and
+                SmartMoney will build your weekly
+                spending trend automatically.
+              </p>
+            </div>
+
+            <div className="analytics-empty-hint">
+              <FaArrowTrendUp />
+
+              <span>
+                Trends become more useful as
+                you add transactions
+              </span>
+            </div>
           </div>
         )}
       </div>

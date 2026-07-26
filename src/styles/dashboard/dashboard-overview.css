@@ -1,45 +1,49 @@
 /* ==========================================================
-   FINANCIAL HEALTH GRID
+   SMARTMONEY — FINANCIAL CONTROL CENTER
 ========================================================== */
 
-.financial-control-center{
+.financial-control-center {
+  display: grid;
 
-    display:grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
 
+  gap: 16px;
+
+  width: 100%;
+
+  align-items: stretch;
+}
+
+.financial-control-center > * {
+  min-width: 0;
+}
+
+.financial-control-center .card {
+  height: 100%;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1180px) {
+  .financial-control-center {
     grid-template-columns:
-        repeat(2,minmax(0,1fr));
+      repeat(2, minmax(0, 1fr));
+  }
 
-    gap:24px;
-
-    align-items:stretch;
-
-    width:100%;
+  .financial-control-center > :last-child {
+    grid-column: 1 / -1;
+  }
 }
 
-/* ---------------------------------------------------------- */
+@media (max-width: 760px) {
+  .financial-control-center {
+    grid-template-columns: 1fr;
+  }
 
-.financial-control-center>*{
-
-    min-width:0;
-
-    height:100%;
-}
-
-/* ---------------------------------------------------------- */
-
-.financial-control-center .card{
-
-    height:100%;
-}
-
-/* ---------------------------------------------------------- */
-
-@media(max-width:1080px){
-
-.financial-control-center{
-
-grid-template-columns:1fr;
-
-}
-
+  .financial-control-center > :last-child {
+    grid-column: auto;
+  }
 }

@@ -24,21 +24,35 @@ function InvestmentSummary({
       ? (profit / invested) * 100
       : 0;
 
-  const formatter = new Intl.NumberFormat(
-    "en-IN",
-    {
-      style: "currency",
-      currency,
-      maximumFractionDigits: 0,
-    }
-  );
+  const formatter = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
+  });
 
   const hasInvestments =
     invested > 0 || currentValue > 0;
 
   const progress = hasInvestments
-    ? Math.min(Math.max(Math.abs(returns), 0), 100)
+    ? Math.min(
+        Math.max(Math.abs(returns), 0),
+        100
+      )
     : 0;
+
+  const status =
+    profit > 0
+      ? "Growing"
+      : profit < 0
+        ? "Down"
+        : "Stable";
+
+  const statusClass =
+    profit > 0
+      ? "success"
+      : profit < 0
+        ? "danger"
+        : "";
 
   return (
     <Card
@@ -52,24 +66,16 @@ function InvestmentSummary({
 
         <div className="widget-heading">
           <h3 className="widget-title">
-            Investment Portfolio
+            Investments
           </h3>
 
           <p className="widget-subtitle">
-            Track your invested capital and current value
+            Current portfolio performance
           </p>
 
           {hasInvestments && (
-            <span
-              className={`widget-pill ${
-                profit >= 0 ? "success" : ""
-              }`}
-            >
-              {profit > 0
-                ? "Growing"
-                : profit < 0
-                  ? "Down"
-                  : "Stable"}
+            <span className={`widget-pill ${statusClass}`}>
+              {status}
             </span>
           )}
         </div>
@@ -81,13 +87,10 @@ function InvestmentSummary({
 
       {!hasInvestments ? (
         <div className="widget-empty-state">
-          <p>
-            No investments added yet.
-          </p>
+          <p>No investments yet</p>
 
           <span>
-            Add your first investment to start
-            tracking portfolio performance.
+            Add an investment to track portfolio performance.
           </span>
         </div>
       ) : (
@@ -96,23 +99,20 @@ function InvestmentSummary({
             <div className="widget-progress">
               <div
                 className="investment-progress-fill"
-                style={{
-                  width: `${progress}%`,
-                }}
+                style={{ width: `${progress}%` }}
               />
             </div>
 
             <div className="widget-progress-info">
               <span>
-                {returns.toFixed(1)}% Return
+                {returns >= 0 ? "+" : ""}
+                {returns.toFixed(1)}% return
               </span>
 
               <span>
-                {profit > 0
-                  ? "Positive Growth"
-                  : profit < 0
-                    ? "Negative Return"
-                    : "No Change"}
+                {profit >= 0
+                  ? "Positive performance"
+                  : "Negative performance"}
               </span>
             </div>
           </div>
@@ -130,7 +130,7 @@ function InvestmentSummary({
 
             <div className="widget-metric">
               <span className="widget-metric-label">
-                Profit / Loss
+                Profit / loss
               </span>
 
               <strong className="widget-metric-value">
@@ -139,13 +139,12 @@ function InvestmentSummary({
               </strong>
             </div>
           </div>
-
-          <div className="widget-footer">
-            Performance is calculated from your
-            recorded investment data.
-          </div>
         </>
       )}
+
+      <div className="widget-footer">
+        Based on your recorded portfolio data
+      </div>
     </Card>
   );
 }
